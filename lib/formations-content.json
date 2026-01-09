@@ -1,0 +1,231 @@
+{
+  "hero": {
+    "title": "Formations de Plongée",
+    "subtitle": "Du débutant au professionnel, nous vous accompagnons dans votre progression",
+    "description": "Formations certifiées PADI et École Française (FFESSM/ANMP) avec nos moniteurs diplômés d'État",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+      "alt": "Formation de plongée avec moniteur et élèves"
+    }
+  },
+  "formations": {
+    "ecoleFrancaise": [
+      {
+        "id": "pe12",
+        "title": "Plongeur Encadré 12m (PE 12)",
+        "description": "Première certification de plongeur encadré. Explorez les fonds jusqu'à 12 mètres accompagné d'un guide.",
+        "duration": "3 plongées",
+        "prerequisite": "Dès 12 ans, savoir nager",
+        "level": "Débutant",
+        "price": "230€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "niveau1",
+        "title": "Plongeur Niveau 1 (PE 20)",
+        "description": "Plongée encadrée jusqu'à 20m. Formation complète avec théorie et pratique pour débuter la plongée.",
+        "duration": "5 plongées",
+        "prerequisite": "Dès 12 ans, savoir nager",
+        "level": "Débutant",
+        "price": "350€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "pe40",
+        "title": "Plongeur Encadré 40m (PE 40)",
+        "description": "Plongée accompagnée jusqu'à 40 mètres. Explorez les sites plus profonds en toute sécurité.",
+        "duration": "3 plongées",
+        "prerequisite": "Niveau 1 ou équivalent",
+        "level": "Intermédiaire",
+        "price": "250€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "pa20",
+        "title": "Plongeur Autonome 20m (PA 20)",
+        "description": "Gagnez votre autonomie ! Plongez en binôme jusqu'à 20m sans guide. Formation théorique et pratique approfondie.",
+        "duration": "6 plongées",
+        "prerequisite": "Niveau 1 ou équivalent",
+        "level": "Intermédiaire",
+        "price": "395€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "niveau2",
+        "title": "Niveau 2 (PE 40 + PA 20)",
+        "description": "Autonomie jusqu'à 20m et plongée accompagnée jusqu'à 40m. Le niveau polyvalent par excellence.",
+        "duration": "10 plongées",
+        "prerequisite": "Niveau 1 ou équivalent",
+        "level": "Intermédiaire",
+        "price": "600€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "pa40",
+        "title": "Plongeur Autonome 40m (PA 40)",
+        "description": "Autonomie complète jusqu'à 40 mètres. Accédez aux plus beaux sites en toute liberté.",
+        "duration": "6 plongées",
+        "prerequisite": "Niveau 2 ou équivalent",
+        "level": "Avancé",
+        "price": "420€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "pe60",
+        "title": "Plongeur Encadré 60m (PE 60)",
+        "description": "Plongée profonde accompagnée jusqu'à 60 mètres. Explorez les grandes profondeurs avec un guide expert.",
+        "duration": "3 plongées",
+        "prerequisite": "Niveau 2 ou équivalent",
+        "level": "Avancé",
+        "price": "290€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "niveau3",
+        "title": "Niveau 3 (PA 60)",
+        "description": "Autonomie complète jusqu'à 60m. Le niveau d'excellence pour les plongeurs expérimentés.",
+        "duration": "10 plongées",
+        "prerequisite": "Niveau 2 + Secourisme Plongée",
+        "level": "Avancé",
+        "price": "700€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "secourisme",
+        "title": "Secourisme Plongée",
+        "description": "Formation aux gestes de premiers secours spécifiques à la plongée. Obligatoire pour l'obtention du Niveau 3.",
+        "duration": "2 séances",
+        "prerequisite": "Niveau 1 minimum",
+        "level": "Spécialité",
+        "price": "105€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "niveau4",
+        "title": "Niveau 4 / Guide de Palanquée",
+        "description": "Formation de guide de palanquée. Première étape vers le monitorat et l'encadrement professionnel.",
+        "duration": "2 semaines ou à la carte",
+        "prerequisite": "Niveau 3 + expérience",
+        "level": "Professionnel",
+        "price": "990€",
+        "category": "ecoleFrancaise"
+      },
+      {
+        "id": "plongeeTech",
+        "title": "Plongée Technique",
+        "description": "Perfectionnez vos compétences techniques avec une plongée d'entraînement ciblée.",
+        "duration": "1 plongée",
+        "prerequisite": "Niveau 1 minimum",
+        "level": "Perfectionnement",
+        "price": "60€",
+        "category": "ecoleFrancaise"
+      }
+    ],
+    "padi": [
+      {
+        "id": "scubaDiver",
+        "title": "PADI Scuba Diver",
+        "description": "Certification de plongeur PADI niveau débutant. Plongée jusqu'à 12m accompagné d'un professionnel.",
+        "duration": "3 plongées",
+        "prerequisite": "Dès 10 ans, savoir nager",
+        "level": "Débutant",
+        "price": "250€",
+        "category": "padi"
+      },
+      {
+        "id": "openwater",
+        "title": "PADI Open Water",
+        "description": "Certification internationale de plongeur autonome. Reconnue mondialement, plongée jusqu'à 18m.",
+        "duration": "6 plongées",
+        "prerequisite": "Dès 10 ans, savoir nager",
+        "level": "Débutant",
+        "price": "295€",
+        "category": "padi"
+      },
+      {
+        "id": "advanced",
+        "title": "PADI Advanced Diver",
+        "description": "Perfectionnez vos compétences avec 5 plongées d'aventure : navigation, profonde, et 3 spécialités au choix.",
+        "duration": "5 plongées",
+        "prerequisite": "Open Water ou équivalent",
+        "level": "Intermédiaire",
+        "price": "230€",
+        "category": "padi"
+      },
+      {
+        "id": "rescue",
+        "title": "PADI Rescue Diver",
+        "description": "Apprenez à gérer les situations d'urgence et à porter assistance. Formation essentielle pour progresser.",
+        "duration": "7 plongées",
+        "prerequisite": "Advanced + EFR",
+        "level": "Avancé",
+        "price": "315€",
+        "category": "padi"
+      },
+      {
+        "id": "efr",
+        "title": "Emergency First Response (EFR)",
+        "description": "Formation aux premiers secours et RCP. Prérequis pour le Rescue Diver et compétence essentielle.",
+        "duration": "1 journée",
+        "prerequisite": "Aucun prérequis",
+        "level": "Secourisme",
+        "price": "150€",
+        "category": "padi"
+      },
+      {
+        "id": "divemaster",
+        "title": "PADI DiveMaster",
+        "description": "Premier niveau professionnel PADI. Devenez leader et guide de plongée certifié.",
+        "duration": "2 semaines",
+        "prerequisite": "Rescue Diver + expérience",
+        "level": "Professionnel",
+        "price": "865€",
+        "category": "padi"
+      },
+      {
+        "id": "scubaReactivate",
+        "title": "Scuba Skills Update / ReActivate",
+        "description": "Remise à niveau pour les plongeurs inactifs. Révisez vos compétences en toute sécurité.",
+        "duration": "1 plongée",
+        "prerequisite": "Certification PADI",
+        "level": "Remise à niveau",
+        "price": "60€",
+        "category": "padi"
+      },
+      {
+        "id": "specialty",
+        "title": "Spécialisations PADI",
+        "description": "Perfectionnez vos compétences avec nos spécialisations : Orientation, Deep, Épave, Recherche et récupération, Plongée de nuit... Choisissez parmi de nombreuses options pour enrichir votre expérience.",
+        "duration": "Variable (2 à 4 plongées)",
+        "prices": {
+          "2dives": "175€",
+          "3dives": "245€",
+          "4dives": "305€"
+        },
+        "prerequisite": "Variable selon spécialité",
+        "level": "Spécialité",
+        "category": "padi"
+      }
+    ]
+  },
+  "info": {
+    "ffessm": {
+      "title": "Frais supplémentaires École Française",
+      "description": "Non inclus dans les tarifs : Frais de certification 13€ + Licence adulte si certification FFESSM 50€"
+    },
+    "padi": {
+      "title": "Kit pédagogique PADI non inclu",
+      "description": "Le kit pédagogique comprenant les manuels, supports d'apprentissage et frais de certification PADI n'est pas inclus dans les tarifs affichés."
+    },
+    "room": {
+      "title": "Formation dans des conditions optimales",
+      "description": "Toutes nos formations théoriques se déroulent dans une salle dédiée et climatisée, équipée de matériel pédagogique moderne pour garantir votre confort et votre apprentissage dans les meilleures conditions."
+    }
+  },
+  "seo": {
+    "title": "Formations de Plongée PADI et FFESSM - Atlantis Plongée Guadeloupe",
+    "description": "Formations de plongée certifiées PADI et École Française en Guadeloupe. Du baptême au niveau professionnel avec nos moniteurs diplômés d'État.",
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Formation de plongée avec moniteur diplômé"
+  }
+}

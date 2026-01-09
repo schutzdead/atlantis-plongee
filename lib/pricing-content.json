@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "title": "Nos Tarifs",
+    "subtitle": "Des prix transparents pour tous les niveaux",
+    "description": "Plongées d'exploration, formations et équipements"
+  },
+  "discovery": {
+    "title": "Tarifs Découverte",
+    "subtitle": "Première expérience sous-marine sans certification requise",
+    "items": [
+      { "title": "Baptême 20 min", "price": "60€" },
+      { "title": "Baptême 30 min", "price": "80€" },
+      { "title": "Baptême Enfants 8-11 ans", "price": "50€" },
+      { "title": "Sortie Palmes/Masque/Tuba", "price": "25€" },
+      { "title": "Initiation (après baptême)", "price": "95€" },
+      { "title": "Plongée de Nuit", "price": "Plongée + 10€" },
+      { "title": "Plongée Lointaine", "price": "Plongée + 10€" }
+    ]
+  },
+  "exploration": {
+    "title": "Plongées d'Exploration",
+    "subtitle": "Pour les plongeurs certifiés qui souhaitent explorer nos sites",
+    "packages": [
+      {
+        "title": "Plongée Simple",
+        "price": "45€",
+        "features": ["1 plongée guidée", "Équipement inclus", "Guide expérimenté", "Sites au choix"]
+      },
+      {
+        "title": "Pack 5 Plongées",
+        "price": "200€",
+        "save": "Économisez 25€",
+        "popular": true,
+        "features": ["5 plongées guidées", "Équipement inclus", "Valable 6 mois", "Sites au choix"]
+      },
+      {
+        "title": "Pack 10 Plongées",
+        "price": "380€",
+        "save": "Économisez 70€",
+        "features": ["10 plongées guidées", "Équipement inclus", "Valable 1 an", "Priorité sur les sites"]
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions Fréquentes",
+    "subtitle": "Tout ce que vous devez savoir sur nos tarifs",
+    "items": [
+      {
+        "question": "L'équipement est-il inclus dans les tarifs ?",
+        "answer": "Oui, tout l'équipement de plongée est inclus : combinaison, bouteille, détendeur, gilet stabilisateur, palmes, masque."
+      },
+      {
+        "question": "Puis-je utiliser mon propre équipement ?",
+        "answer": "Bien sûr ! Si vous avez votre propre équipement, nous appliquons une réduction de 10€ par plongée."
+      },
+      {
+        "question": "Les packs de plongées sont-ils transférables ?",
+        "answer": "Non, les packs sont nominatifs mais peuvent être utilisés par la même personne sur toute la période de validité."
+      }
+    ]
+  },
+  "seo": {
+    "title": "Tarifs Plongée Guadeloupe - Atlantis Plongée",
+    "description": "Découvrez nos tarifs de plongée en Guadeloupe. Baptêmes, formations, explorations et forfaits adaptés à tous les budgets.",
+    "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Plongée en Guadeloupe"
+  }
+}

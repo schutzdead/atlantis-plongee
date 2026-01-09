@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "title": "Notre Équipe",
+    "subtitle": "Des professionnels passionnés à votre service",
+    "description": "Une équipe de moniteurs diplômés d'État, expérimentés et dévoués pour vous faire vivre les meilleures expériences sous-marines",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1560439513-74b037a25d84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+      "alt": "Équipe de moniteurs de plongée"
+    }
+  },
+  "members": [
+    {
+      "id": "jacques",
+      "name": "Capitaine Jacques Moreau",
+      "role": "Directeur & Moniteur BEES 3",
+      "bio": "Plongeur depuis plus de 30 ans, Jacques a fondé Atlantis Plongée en 2010. Passionné par la préservation des océans, il partage son amour de la mer avec chaque plongeur.",
+      "specialties": ["Plongée tek et recycleur", "Biologie marine", "Photographie sous-marine"],
+      "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    },
+    {
+      "id": "marie",
+      "name": "Marie Dupont",
+      "role": "Monitrice BEES 2 & Biologiste",
+      "bio": "Biologiste marine de formation, Marie apporte une dimension scientifique unique à chaque plongée. Elle anime régulièrement des conférences sur la faune locale.",
+      "specialties": ["Identification des espèces", "Écologie marine", "Plongée nitrox"],
+      "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    },
+    {
+      "id": "olivier",
+      "name": "Olivier Leroy",
+      "role": "Moniteur BEES 2",
+      "bio": "Ancien pompier plongeur, Olivier excelle dans la formation sécurité. Son calme et sa pédagogie rassurent les plongeurs débutants.",
+      "specialties": ["Sécurité et sauvetage", "Formation niveau 1 et 2", "Plongée sur épave"],
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    },
+    {
+      "id": "lea",
+      "name": "Léa Martinez",
+      "role": "Monitrice BEES 1",
+      "bio": "La plus jeune de l'équipe, Léa apporte son énergie et sa fraîcheur. Spécialisée dans l'accompagnement des enfants et débutants.",
+      "specialties": ["Baptêmes de plongée", "Plongée enfants (8-12 ans)", "Apnée"],
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    }
+  ],
+  "values": [
+    {
+      "title": "Passion",
+      "description": "Nous aimons ce que nous faisons et partageons notre passion de l'océan avec enthousiasme."
+    },
+    {
+      "title": "Excellence",
+      "description": "Formation de qualité, matériel moderne et respect des standards de sécurité les plus élevés."
+    },
+    {
+      "title": "Respect",
+      "description": "Respect de l'environnement marin, des plongeurs et de l'océan qui nous accueille."
+    }
+  ],
+  "seo": {
+    "title": "Notre Équipe - Moniteurs de Plongée Diplômés - Atlantis Plongée",
+    "description": "Rencontrez notre équipe de moniteurs diplômés d'État, passionnés et expérimentés pour vos plongées en Guadeloupe.",
+    "image": "https://images.unsplash.com/photo-1560439513-74b037a25d84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Équipe Atlantis Plongée"
+  }
+}

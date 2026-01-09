@@ -1,0 +1,90 @@
+{
+  "hero": {
+    "title": "Découverte de la Plongée",
+    "subtitle": "Première expérience sous-marine ou plongées d'exploration unique",
+    "description": "Baptêmes et plongées découverte pour tous les âges et tous les niveaux",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1682687220923-c58b9a4592ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+      "alt": "Baptême de plongée avec enfant"
+    }
+  },
+  "baptemes": [
+    {
+      "id": "bapteme20",
+      "title": "Baptême 20 min",
+      "description": "Première immersion en piscine ou mer peu profonde. Idéal pour découvrir les sensations de la plongée en douceur.",
+      "duration": "20 minutes",
+      "prerequisite": "Aucun, à partir de 8 ans",
+      "price": "60€",
+      "age": "dès 8 ans"
+    },
+    {
+      "id": "bapteme30",
+      "title": "Baptême 30 min",
+      "description": "Immersion complète avec exploration des fonds marins. Accompagnement personnalisé d'un moniteur diplômé.",
+      "duration": "30 minutes",
+      "prerequisite": "Aucun, à partir de 8 ans",
+      "price": "80€",
+      "age": "dès 8 ans"
+    },
+    {
+      "id": "baptemeEnfants",
+      "title": "Baptême Enfants 8-11 ans",
+      "description": "Baptême spécialement adapté aux enfants de 8 à 11 ans. Approche ludique et sécurisée.",
+      "duration": "15 minutes",
+      "prerequisite": "8 à 11 ans, autorisation parentale",
+      "price": "50€",
+      "age": "8-11 ans"
+    },
+    {
+      "id": "snorkeling",
+      "title": "Sortie Palmes/Masque/Tuba",
+      "description": "Explorez la surface en toute autonomie. Location d'équipement et encadrement inclus.",
+      "duration": "2 heures",
+      "prerequisite": "Savoir nager",
+      "price": "25€",
+      "age": "dès 8 ans"
+    },
+    {
+      "id": "initiation",
+      "title": "Initiation (après baptême)",
+      "description": "Approfondissez votre première expérience. Perfectionnement des techniques de base et découverte de nouveaux sites.",
+      "duration": "50 minutes",
+      "prerequisite": "Avoir effectué un baptême",
+      "price": "95€",
+      "age": "dès 8 ans"
+    }
+  ],
+  "plongeesDecouverte": [
+    {
+      "id": "nuit",
+      "title": "Plongée de Nuit",
+      "description": "Découvrez la vie nocturne sous-marine. Une expérience magique et inoubliable sous les étoiles.",
+      "duration": "1 plongée",
+      "prerequisite": "Niveau 1 ou équivalent",
+      "price": "Plongée + 10€",
+      "supplement": "Supplément de 10€ sur le tarif exploration"
+    },
+    {
+      "id": "lointaine",
+      "title": "Plongée Lointaine",
+      "description": "Accédez aux sites les plus éloignés et préservés. Trajets en bateau vers des spots exceptionnels.",
+      "duration": "1 plongée + trajet",
+      "prerequisite": "Niveau 1 ou équivalent",
+      "price": "Plongée + 10€",
+      "supplement": "Supplément de 10€ sur le tarif exploration"
+    }
+  ],
+  "info": {
+    "equipment": {
+      "title": "Équipement Inclus",
+      "description": "Tout l'équipement de plongée est fourni et inclus dans nos tarifs : combinaison, bouteilles, détendeurs, gilets, palmes, masques et ordinateurs de plongée."
+    }
+  },
+  "seo": {
+    "title": "Baptême de Plongée et Découverte - Atlantis Plongée Guadeloupe",
+    "description": "Baptêmes de plongée et initiations en Guadeloupe. Première expérience sous-marine dès 8 ans avec nos moniteurs diplômés.",
+    "image": "https://images.unsplash.com/photo-1682687220923-c58b9a4592ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Baptême de plongée pour enfant"
+  }
+}

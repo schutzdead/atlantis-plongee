@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "title": "Sites de Plongée",
+    "subtitle": "Découvrez les trésors sous-marins de la Guadeloupe",
+    "description": "Dans le Parc National de la Réserve Cousteau et alentours",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1682687221038-404cb8830901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+      "alt": "Vue sous-marine d'un récif corallien coloré"
+    }
+  },
+  "sites": [
+    {
+      "id": "machette",
+      "name": "Machette",
+      "category": "pointeLezard",
+      "level": "Tous niveaux",
+      "depth": "Surface - 20m",
+      "description": "Site idéal pour tous les niveaux dans le Parc National. Plongée peu profonde offrant une belle diversité marine et des formations coralliennes accessibles à tous.",
+      "highlights": ["Jardin de coraux", "Poissons multicolores", "Visibilité excellente"],
+      "image": "https://images.unsplash.com/photo-1682687221363-72518513620e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    },
+    {
+      "id": "pointeLezard",
+      "name": "Pointe à Lézard",
+      "category": "pointeLezard",
+      "level": "Niveau 1 ou Open Water minimum",
+      "depth": "6m - 45m",
+      "description": "Site emblématique du Parc National offrant une grande variété de profondeurs. Tombant spectaculaire avec une biodiversité exceptionnelle adaptée à tous les plongeurs certifiés.",
+      "highlights": ["Tombant vertigineux", "Gorgones géantes", "Tortues marines"],
+      "image": "https://images.unsplash.com/photo-1682687220801-eef408f95d71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    },
+    {
+      "id": "champagne",
+      "name": "Champagne",
+      "category": "pointeLezard",
+      "level": "Niveau 1 ou Open Water minimum",
+      "depth": "10m - 30m",
+      "description": "Site hors parc réputé pour ses bulles volcaniques naturelles remontant du fond. Phénomène géothermique unique créant un spectacle saisissant et une expérience de plongée inoubliable.",
+      "highlights": ["Bulles volcaniques", "Eau chaude thermale", "Phénomène unique"],
+      "extra": "Hors parc",
+      "image": "https://images.unsplash.com/photo-1682687220208-22d7a2543e88?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    },
+    {
+      "id": "franjack",
+      "name": "Franjack",
+      "category": "epaves",
+      "level": "Niveau 1 ou Open Water minimum",
+      "depth": "23m",
+      "description": "Épave accessible d'un cargo reposant sur un fond sableux. Colonisée par la vie marine depuis des décennies, elle offre une belle plongée d'exploration pour les plongeurs certifiés.",
+      "highlights": ["Épave colonisée", "Bancs de poissons", "Murènes"],
+      "image": "https://images.unsplash.com/photo-1682695797873-aa4cb6edd613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    },
+    {
+      "id": "gustavia",
+      "name": "Gustavia",
+      "category": "epaves",
+      "level": "PE40 ou Deep Diver minimum",
+      "depth": "40m",
+      "description": "Épave profonde d'un navire marchand pour plongeurs expérimentés. Structure impressionnante offrant un terrain d'exploration technique et une faune spécifique aux grandes profondeurs.",
+      "highlights": ["Plongée profonde", "Structure intacte", "Langoustes"],
+      "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    },
+    {
+      "id": "augustin",
+      "name": "Augustin Fresnel",
+      "category": "epaves",
+      "level": "PE40 ou Advanced minimum",
+      "depth": "33m",
+      "description": "Épave d'un ancien bateau-phare situé hors parc. Plongée technique et profonde sur une belle structure partiellement enfouie dans le sable offrant de belles opportunités photographiques.",
+      "highlights": ["Bateau-phare", "Coraux mous", "Photographie"],
+      "extra": "Hors parc",
+      "image": "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
+    }
+  ],
+  "seo": {
+    "title": "Sites de Plongée Guadeloupe - Réserve Cousteau - Atlantis Plongée",
+    "description": "Découvrez plus de 20 sites de plongée exceptionnels en Guadeloupe. Récifs, épaves et tombants dans la Réserve Cousteau.",
+    "image": "https://images.unsplash.com/photo-1682687221038-404cb8830901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Récif corallien en Guadeloupe"
+  }
+}

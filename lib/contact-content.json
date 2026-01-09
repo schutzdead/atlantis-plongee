@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "title": "Contactez-Nous",
+    "subtitle": "Une question ? Besoin d'informations ?",
+    "description": "Notre équipe vous répond dans les plus brefs délais",
+    "image": {
+      "src": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+      "alt": "Bateau de plongée au coucher du soleil"
+    }
+  },
+  "form": {
+    "title": "Envoyez-nous un message",
+    "subtitle": "Remplissez le formulaire ci-dessous",
+    "fields": {
+      "name": { "label": "Nom complet", "placeholder": "Jean Dupont" },
+      "email": { "label": "Email", "placeholder": "jean.dupont@example.com" },
+      "phone": { "label": "Téléphone", "placeholder": "+590 690 12 34 56" },
+      "subject": { "label": "Sujet", "placeholder": "Réservation de plongée" },
+      "message": { "label": "Message", "placeholder": "Décrivez votre demande..." }
+    },
+    "submit": "Envoyer le message"
+  },
+  "info": {
+    "title": "Où Nous Trouver",
+    "subtitle": "Venez nous rendre visite",
+    "address": { "label": "Adresse", "value": "Plage de Malendure, 97125 Bouillante, Guadeloupe" },
+    "hours": { "label": "Horaires", "value": "Tous les jours de 8h à 18h" },
+    "phone": { "label": "Téléphone", "value": "+590 690 12 34 56" },
+    "email": { "label": "Email", "value": "contact@atlantis-plongee.gp" }
+  },
+  "seo": {
+    "title": "Contact - Atlantis Plongée Guadeloupe",
+    "description": "Contactez Atlantis Plongée pour vos réservations de plongée en Guadeloupe. Notre équipe vous répond rapidement.",
+    "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200",
+    "imageAlt": "Contact Atlantis Plongée"
+  }
+}

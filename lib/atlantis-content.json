@@ -1,0 +1,186 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "formations": "Formations",
+    "discovery": "Découverte",
+    "pricing": "Prix",
+    "sites": "Sites de Plongée",
+    "team": "L'Équipe",
+    "contact": "Contact",
+    "book": "Réserver"
+  },
+  "home": {
+    "hero": {
+      "slides": [
+        {
+          "id": 1,
+          "title": "Plongez au paradis",
+          "subtitle": "EAUX CRISTALLINES",
+          "description": "Des conditions de plongée exceptionnelles toute l'année dans les Caraïbes",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1589772420961-7e737f42d5c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2JzdGVyJTIwdW5kZXJ3YXRlciUyMGRpdmluZ3xlbnwxfHx8fDE3NjQ2MTI5NTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+            "alt": "Plongeur explorant les fonds marins sous-marins"
+          }
+        },
+        {
+          "id": 2,
+          "title": "Explorez l'inconnu",
+          "subtitle": "CLUB DE PLONGÉE • GUADELOUPE",
+          "description": "Plongez dans les eaux cristallines de la Guadeloupe et découvrez un monde sous-marin exceptionnel",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1619216723359-6d49acec80c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY3ViYSUyMGRpdmVyJTIwb2NlYW4lMjBibHVlfGVufDF8fHx8MTc2NDYwODc4OXww&ixlib=rb-4.1.0&q=80&w=1080",
+            "alt": "Plongeur en apnée dans l'océan bleu"
+          }
+        },
+        {
+          "id": 3,
+          "title": "Découvrez les profondeurs",
+          "subtitle": "AVENTURE SOUS-MARINE",
+          "description": "Des récifs coralliens aux grottes mystérieuses, explorez la richesse marine de la Guadeloupe",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1744656317897-c97c8f3b1371?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bmRlcndhdGVyJTIwZGl2aW5nJTIwY29yYWx8ZW58MXx8fHwxNzY0NTgwMzg1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+            "alt": "Coraux colorés et récifs tropicaux"
+          }
+        }
+      ],
+      "cta": "Réserver une plongée"
+    },
+    "fiveStar": {
+      "title": "Excellence & Professionnalisme",
+      "subtitle": "Certifié PADI 5 Star Dive Center, nous respectons les plus hauts standards de qualité et de sécurité pour vous offrir une expérience de plongée exceptionnelle.",
+      "features": [
+        {
+          "title": "Standards d'Excellence",
+          "description": "Formation et équipements conformes aux normes PADI les plus strictes"
+        },
+        {
+          "title": "Moniteurs Certifiés",
+          "description": "Encadrement par des professionnels diplômés d'État et PADI"
+        },
+        {
+          "title": "Sécurité Maximale",
+          "description": "Protocoles de sécurité rigoureux et matériel régulièrement contrôlé"
+        },
+        {
+          "title": "Service Premium",
+          "description": "Accompagnement personnalisé et groupes limités pour votre confort"
+        }
+      ]
+    },
+    "quickLinks": {
+      "title": "Découvrez Nos Services",
+      "subtitle": "Tout ce dont vous avez besoin pour vivre une expérience sous-marine inoubliable",
+      "bookDiveCta": "Réserver une plongée",
+      "services": [
+        {
+          "title": "Formations",
+          "description": "Apprenez à plonger avec nos moniteurs diplômés, du débutant au professionnel",
+          "cta": "Voir les formations",
+          "link": "/formations"
+        },
+        {
+          "title": "Découverte",
+          "description": "Baptêmes de plongée et initiations pour vivre votre première expérience sous-marine",
+          "cta": "Découvrir",
+          "link": "/decouverte"
+        },
+        {
+          "title": "Tarifs",
+          "description": "Découvrez nos forfaits adaptés à tous les budgets et niveaux de plongée",
+          "cta": "Voir les prix",
+          "link": "/prix"
+        },
+        {
+          "title": "Sites de Plongée",
+          "description": "Explorez plus de 20 sites exceptionnels dans les eaux de la Guadeloupe",
+          "cta": "Découvrir les sites",
+          "link": "/sites"
+        },
+        {
+          "title": "Contact",
+          "description": "Une question ? Besoin d'informations ? Notre équipe vous répond rapidement",
+          "cta": "Nous contacter",
+          "link": "/contact"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Ce Que Disent Nos Plongeurs",
+      "subtitle": "Plus de 500 plongeurs nous font confiance chaque année",
+      "items": [
+        {
+          "name": "Marie Dubois",
+          "role": "Plongeuse certifiée",
+          "text": "Une expérience extraordinaire ! L'équipe est professionnelle et passionnée. J'ai obtenu mon niveau 1 avec eux et je recommande vivement."
+        },
+        {
+          "name": "Thomas Laurent",
+          "role": "Plongeur expérimenté",
+          "text": "Les sites de plongée sont exceptionnels. La Réserve Cousteau est un véritable paradis sous-marin. Merci à toute l'équipe !"
+        },
+        {
+          "name": "Sophie Martin",
+          "role": "Débutante",
+          "text": "J'avais un peu peur au début, mais l'équipe a été très rassurante. Maintenant je suis accro à la plongée !"
+        },
+        {
+          "name": "Pierre Lefebvre",
+          "role": "Plongeur avancé",
+          "text": "Excellente organisation, matériel de qualité et guides expérimentés. Je plonge avec eux depuis 5 ans."
+        },
+        {
+          "name": "Julie Rousseau",
+          "role": "Photographe sous-marine",
+          "text": "Les meilleurs spots pour la photo sous-marine ! L'équipe connaît tous les secrets des fonds marins."
+        }
+      ]
+    },
+    "stats": {
+      "title": "Nos Chiffres Clés",
+      "subtitle": "Plus de 15 ans d'expérience au service de la plongée en Guadeloupe",
+      "items": [
+        {
+          "value": "20+",
+          "label": "Sites de plongée"
+        },
+        {
+          "value": "500+",
+          "label": "Plongeurs formés"
+        },
+        {
+          "value": "15+",
+          "label": "Ans d'expérience"
+        },
+        {
+          "value": "365",
+          "label": "Jours par an"
+        }
+      ],
+      "discoverTeamCta": "Découvrez l'équipe"
+    },
+    "cta": {
+      "title": "Prêt à Plonger ?",
+      "description": "Rejoignez-nous pour une aventure sous-marine inoubliable dans les eaux cristallines de la Guadeloupe",
+      "button": "Contactez-nous"
+    }
+  },
+  "seo": {
+    "title": "Atlantis Plongée Guadeloupe - Club de Plongée PADI 5 Star",
+    "description": "Club de plongée certifié PADI 5 Star à Bouillante, Guadeloupe. Formations, baptêmes, exploration de sites exceptionnels dans la Réserve Cousteau.",
+    "image": "https://images.unsplash.com/photo-1589772420961-7e737f42d5c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2JzdGVyJTIwdW5kZXJ3YXRlciUyMGRpdmluZ3xlbnwxfHx8fDE3NjQ2MTI5NTR8MA&ixlib=rb-4.1.0&q=80&w=1200",
+    "imageAlt": "Plongeur explorant les fonds marins en Guadeloupe"
+  },
+  "footer": {
+    "tagline": "Explorez les merveilles sous-marines de la Guadeloupe",
+    "quickLinks": "Liens Rapides",
+    "contact": "Contact",
+    "findUs": "Où nous trouver",
+    "address": "Plage de Malendure, Bouillante",
+    "phone": "+590 690 12 34 56",
+    "email": "contact@atlantis-plongee.gp",
+    "legal": "Mentions Légales",
+    "terms": "CGV",
+    "privacy": "Confidentialité",
+    "copyright": "© 2025 Atlantis Plongée Guadeloupe. Tous droits réservés."
+  }
+}
