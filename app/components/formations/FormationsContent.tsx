@@ -8,22 +8,37 @@ import { BubbleButton } from '../shared/BubbleButton';
 
 type FormationFilter = 'all' | 'ecoleFrancaise' | 'padi';
 
-interface FormationsContentProps {
-  content: any;
+interface Formation {
+  titre: string;
+  prix: string;
+  courteDescription: string;
+  dure: string;
+  preRequis: string;
+  lien: string;
+  niveau: string;
+  type: boolean; // true = PADI, false = École Française
+  lienPadi: string | null;
+  photo: {
+    url: string;
+  };
 }
 
-export function FormationsContent({ content: initialContent }: FormationsContentProps) {
+interface FormationsContentProps {
+  content: any;
+  articles: Formation[];
+}
+
+export function FormationsContent({ content: initialContent, articles }: FormationsContentProps) {
   const content = initialContent;
   const [activeFilter, setActiveFilter] = useState<FormationFilter>('all');
 
+  // Map articles to include organization type based on 'type' field
+  const allFormations = (articles || []).map((f: Formation) => ({
+    ...f,
+    organization: f.type ? 'padi' : 'ecoleFrancaise'
+  }));
 
-  // Combine both arrays and add organization type
-  const allFormations = [
-    ...(content?.formations?.ecoleFrancaise || []).map((f: any) => ({ ...f, organization: 'ecoleFrancaise' })),
-    ...(content?.formations?.padi || []).map((f: any) => ({ ...f, organization: 'padi' }))
-  ];
-
-  const filteredFormations = allFormations.filter((f: any) =>
+  const filteredFormations = allFormations.filter((f) =>
     activeFilter === 'all' || f.organization === activeFilter
   );
 
@@ -181,34 +196,29 @@ export function FormationsContent({ content: initialContent }: FormationsContent
 
           {/* Formations Cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredFormations.map((formation: any, index: number) => {
-              // Handle specialty price display
-              const priceDisplay = formation.prices
-                ? `${formation.prices['2dives']} / ${formation.prices['3dives']} / ${formation.prices['4dives']}`
-                : formation.price;
-
+            {filteredFormations.map((formation, index: number) => {
               return (
                 <motion.div
-                  key={formation.id}
+                  key={`${formation.titre}-${index}`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.05 }}
                   whileHover={{ y: -10 }}
                   className="group"
                 >
-                  <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100">
+                  <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 flex flex-col">
                     {/* Image */}
-                    <div className="relative h-48 sm:h-56 overflow-hidden">
+                    <div className="relative h-48 sm:h-56 overflow-hidden flex-shrink-0">
                       <ImageWithFallback
-                        src={formation.image || "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=800&fit=crop"}
-                        alt={formation.title}
+                        src={formation.photo?.url || "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=800&fit=crop"}
+                        alt={formation.titre}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-black/40" />
 
                       {/* Level Badge */}
                       <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-slate-900">
-                        {formation.level}
+                        {formation.niveau}
                       </div>
 
                       {/* Organization Badge */}
@@ -218,55 +228,68 @@ export function FormationsContent({ content: initialContent }: FormationsContent
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="p-6 flex flex-col flex-1">
                       <h3 className="text-2xl font-bold text-slate-900 mb-3">
-                        {formation.title}
+                        {formation.titre}
                       </h3>
 
                       {/* Price */}
                       <div className="mb-4">
-                        <span className="text-3xl font-bold text-[var(--primary)]">{priceDisplay}</span>
+                        <span className="text-3xl font-bold text-[var(--primary)]">{formation.prix}</span>
                       </div>
 
                       <p className="text-slate-600 mb-6 leading-relaxed">
-                        {formation.description}
+                        {formation.courteDescription}
                       </p>
 
                       {/* Details */}
                       <div className="space-y-3 mb-6">
                         <div className="flex items-center gap-3 text-sm">
-                          <Clock className="w-4 h-4 text-[var(--primary)]" />
+                          <Clock className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Durée:</span> {formation.duration}
+                            <span className="font-semibold">Durée:</span> {formation.dure}
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-sm">
-                          <CheckCircle className="w-4 h-4 text-[var(--primary)]" />
+                          <CheckCircle className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Prérequis:</span> {formation.prerequisite}
+                            <span className="font-semibold">Prérequis:</span> {formation.preRequis}
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-sm">
-                          <Award className="w-4 h-4 text-[var(--primary)]" />
+                          <Award className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Niveau:</span> {formation.level}
+                            <span className="font-semibold">Niveau:</span> {formation.niveau}
                           </span>
                         </div>
                       </div>
 
+                      {/* Spacer to push button to bottom */}
+                      <div className="flex-1" />
+
                       {/* CTA Button */}
-                      {formation.organization === 'padi' ? (
-                        <div className="grid grid-cols-2 gap-3">
-                          <BubbleButton className="text-sm">
+                      {formation.lienPadi ? (
+                        <div className="grid grid-cols-2 gap-3 mt-auto">
+                          <BubbleButton
+                            className="text-sm"
+                            onClick={() => window.open(formation.lien, '_blank')}
+                          >
                             Réserver
                           </BubbleButton>
-                          <BubbleButton variant="outline" className="flex items-center justify-center gap-2 text-sm">
+                          <BubbleButton
+                            variant="outline"
+                            className="flex items-center justify-center gap-2 text-sm"
+                            onClick={() => window.open(formation.lienPadi!, '_blank')}
+                          >
                             <Download className="w-4 h-4" />
                             Kit PADI
                           </BubbleButton>
                         </div>
                       ) : (
-                        <BubbleButton className="w-full">
+                        <BubbleButton
+                          className="w-full mt-auto"
+                          onClick={() => window.open(formation.lien, '_blank')}
+                        >
                           Réserver cette formation
                         </BubbleButton>
                       )}

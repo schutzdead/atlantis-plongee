@@ -2,12 +2,148 @@
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, Ticket, HelpCircle, Sparkles } from 'lucide-react';
-import { BubbleButton } from '../shared/BubbleButton';
+import { Ticket, HelpCircle, Compass, GraduationCap, Wrench, CheckCircle } from 'lucide-react';
+
+interface PriceItem {
+  title: string;
+  price: string;
+  note?: string;
+}
+
+interface PriceSection {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  items: PriceItem[];
+  infoBox?: {
+    title: string;
+    description: string;
+  };
+}
 
 interface PrixContentProps {
   content: any;
 }
+
+const PriceSectionComponent = ({
+  section,
+  index,
+  icon: Icon,
+  bgColor = "bg-white"
+}: {
+  section: PriceSection;
+  index: number;
+  icon: any;
+  bgColor?: string;
+}) => (
+  <section className={`py-16 sm:py-20 lg:py-24 ${bgColor}`}>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-12 sm:mb-16"
+      >
+        <div className="flex justify-center mb-6">
+          <div className="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center">
+            <Icon className="w-8 h-8 text-white" />
+          </div>
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          {section.title}
+        </h2>
+        <div className="flex justify-center mb-4">
+          <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
+            <path
+              d="M2 18c1.5 .8 3 1.5 6 1.5 6 0 6-3 12-3 6.3 0 5.7 3 12 3 6 0 6-3 12-3 3 0 4.5 .7 6 1.5"
+              stroke="#06b6d4"
+              strokeWidth="3"
+              strokeLinecap="round"
+              fill="none"
+            />
+          </svg>
+        </div>
+        {section.subtitle && (
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-2">
+            {section.subtitle}
+          </p>
+        )}
+        {section.description && (
+          <p className="text-base text-slate-500 max-w-2xl mx-auto">
+            {section.description}
+          </p>
+        )}
+      </motion.div>
+
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden"
+        >
+          {section.items?.map((item: PriceItem, itemIndex: number) => (
+            <motion.div
+              key={itemIndex}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: itemIndex * 0.05 }}
+              className={`${
+                itemIndex !== section.items.length - 1 ? 'border-b border-gray-200' : ''
+              } hover:bg-[rgb(var(--primaryrgb)/0.05)] transition-colors duration-200`}
+            >
+              <div className="flex items-center justify-between p-6">
+                <div className="flex-1">
+                  <span className="font-semibold text-slate-900 text-lg block">
+                    {item.title}
+                  </span>
+                  {item.note && (
+                    <span className="text-sm text-slate-500 mt-1 block">
+                      {item.note}
+                    </span>
+                  )}
+                </div>
+                <span className="text-2xl font-bold text-[var(--primary)] ml-4">
+                  {item.price}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Info Box (optionnel) */}
+        {section.infoBox && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-8 max-w-4xl mx-auto"
+          >
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-3xl p-8">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="w-6 h-6 text-[var(--primary)]" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                    {section.infoBox.title}
+                  </h3>
+                  <p className="text-slate-700 leading-relaxed">
+                    {section.infoBox.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  </section>
+);
 
 export function PrixContent({ content }: PrixContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -42,11 +178,11 @@ export function PrixContent({ content }: PrixContentProps) {
                 <path d="M2 18c1 .8 2 1.5 4 1.5 4 0 4-3 8-3 4.2 0 3.8 3 8 3 4 0 4-3 8-3 2 0 3 .7 4 1.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
               </svg>
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl text-[rgb(var(--primaryrgb)/0.95)] mb-6">
+            <p className="text-lg sm:text-xl lg:text-2xl text-white mb-6">
               {content?.hero?.subtitle || "Des prix transparents pour tous les niveaux"}
             </p>
-            <p className="text-base sm:text-lg text-[rgb(var(--primaryrgb)/0.8)] max-w-2xl mx-auto">
-              {content?.hero?.description || "Plongées d'exploration, formations et équipements"}
+            <p className="text-base sm:text-lg text-white max-w-2xl mx-auto">
+              {content?.hero?.description || "Baptêmes, formations et équipements"}
             </p>
           </motion.div>
         </div>
@@ -58,156 +194,38 @@ export function PrixContent({ content }: PrixContentProps) {
         </div>
       </section>
 
-      {/* Exploration Packages */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              {content?.exploration?.title || "Plongées d'Exploration"}
-            </h2>
-            <div className="flex justify-center mb-4">
-              <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
-                <path
-                  d="M2 18c1.5 .8 3 1.5 6 1.5 6 0 6-3 12-3 6.3 0 5.7 3 12 3 6 0 6-3 12-3 3 0 4.5 .7 6 1.5"
-                  stroke="#06b6d4"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
-              {content?.exploration?.subtitle || "Pour les plongeurs certifiés"}
-            </p>
-          </motion.div>
+      {/* Baptêmes et Initiations */}
+      {content?.baptemes && (
+        <PriceSectionComponent
+          section={content.baptemes}
+          index={0}
+          icon={Compass}
+          bgColor="bg-white"
+        />
+      )}
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
-            {content?.exploration?.packages?.map((pkg: any, index: number) => (
-              <motion.div
-                key={pkg.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="relative"
-              >
-                <div className={`relative h-full rounded-3xl p-8 shadow-xl transition-all duration-300 border-2 ${
-                  pkg.popular
-                    ? 'bg-[var(--primary)] border-[rgb(var(--primaryrgb)/0.8)] scale-105'
-                    : 'bg-white border-gray-200 hover:border-[var(--primary)]'
-                }`}>
-                  {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[rgb(var(--primaryrgb)/0.9)] text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg">
-                        <Sparkles className="w-4 h-4" />
-                        Le Plus Populaire
-                      </div>
-                    </div>
-                  )}
+      {/* Location d'Équipement */}
+      {content?.equipment && (
+        <PriceSectionComponent
+          section={content.equipment}
+          index={1}
+          icon={Wrench}
+          bgColor="bg-gray-50"
+        />
+      )}
 
-                  <div className={pkg.popular ? 'text-white' : 'text-slate-900'}>
-                    <h3 className="text-2xl font-bold mb-4">{pkg.title}</h3>
-                    <div className="mb-6">
-                      <span className="text-5xl font-bold">{pkg.price}</span>
-                    </div>
-                    {pkg.save && (
-                      <div className={`text-sm font-semibold mb-6 ${pkg.popular ? 'text-[rgb(var(--primaryrgb)/0.9)]' : 'text-[var(--primary)]'}`}>
-                        {pkg.save}
-                      </div>
-                    )}
-
-                    <ul className="space-y-4 mb-8">
-                      {pkg.features?.map((feature: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pkg.popular ? 'text-white' : 'text-[var(--primary)]'}`} />
-                          <span className="leading-relaxed">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <BubbleButton
-                      className={`w-full ${
-                        pkg.popular
-                          ? 'bg-white text-[var(--primary)] hover:bg-gray-100'
-                          : ''
-                      }`}
-                    >
-                      Réserver
-                    </BubbleButton>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Discovery Prices */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              {content?.discovery?.title || "Tarifs Découverte"}
-            </h2>
-            <div className="flex justify-center mb-4">
-              <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
-                <path
-                  d="M2 18c1.5 .8 3 1.5 6 1.5 6 0 6-3 12-3 6.3 0 5.7 3 12 3 6 0 6-3 12-3 3 0 4.5 .7 6 1.5"
-                  stroke="#06b6d4"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">
-              {content?.discovery?.subtitle || "Première expérience sous-marine"}
-            </p>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden"
-            >
-              {content?.discovery?.items?.map((item: any, index: number) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className={`flex items-center justify-between p-6 ${
-                    index !== content.discovery.items.length - 1 ? 'border-b border-gray-200' : ''
-                  } hover:bg-[rgb(var(--primaryrgb)/0.05)] transition-colors duration-200`}
-                >
-                  <span className="font-semibold text-slate-900 text-lg">{item.title}</span>
-                  <span className="text-2xl font-bold text-[var(--primary)]">{item.price}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* Tarifs des Formations */}
+      {content?.formations && (
+        <PriceSectionComponent
+          section={content.formations}
+          index={2}
+          icon={GraduationCap}
+          bgColor="bg-white"
+        />
+      )}
 
       {/* FAQ Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

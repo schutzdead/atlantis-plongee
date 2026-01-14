@@ -10,6 +10,43 @@ const DECOUVERTE_GRAPHQL_FIELDS = `
   lien
 `;
 
+const TEAM_GRAPHQL_FIELDS = `
+  nom
+  specialite
+  photo {
+    url
+  }
+  courteDescription
+`;
+
+const FORMATIONS_GRAPHQL_FIELDS = `
+  titre
+  prix
+  photo {
+    url
+  }
+  courteDescription
+  dure
+  preRequis
+  lien
+  niveau
+  type
+  lienPadi
+`;
+
+const SITES_GRAPHQL_FIELDS = `
+  titre
+  prodonfeur
+  niveau
+  photo {
+    url
+  }
+  courteDescription
+  pointsForts
+  horsParc
+  catgorie
+`;
+
 const HOMEPAGE_GRAPHQL_FIELDS = `
   sys {
     id
@@ -37,14 +74,10 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
   ).then((response) => response.json());
 }
 
-function extractPost(fetchResponse: any): any {
-  return fetchResponse?.data?.postCollection?.items?.[0];
-}
-
 export async function getDecouvertes(preview = false): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      dcouvertesCollection(limit: 10, preview: ${preview ? "true" : "false"}) {
+      dcouvertesCollection(limit: 25, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
         items {
           ${DECOUVERTE_GRAPHQL_FIELDS}
         }
@@ -52,9 +85,72 @@ export async function getDecouvertes(preview = false): Promise<any> {
     }`,
     preview,
   );
-  console.log(entry);
-  
+
   return entry?.data?.dcouvertesCollection?.items;
+
+}
+
+export async function getExploration(preview = false): Promise<any> {
+  const entry = await fetchGraphQL(
+    `query {
+      explorationCollection(limit: 25, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+        items {
+          ${DECOUVERTE_GRAPHQL_FIELDS}
+        }
+      }
+    }`,
+    preview,
+  );
+
+  return entry?.data?.explorationCollection?.items;
+
+}
+
+export async function getTeam(preview = false): Promise<any> {
+  const entry = await fetchGraphQL(
+    `query {
+      equipeCollection(limit: 25, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+        items {
+          ${TEAM_GRAPHQL_FIELDS}
+        }
+      }
+    }`,
+    preview,
+  );
+
+  return entry?.data?.equipeCollection?.items;
+
+}
+
+export async function getFormations(preview = false): Promise<any> {
+  const entry = await fetchGraphQL(
+    `query {
+      formationsCollection(limit: 50, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+        items {
+          ${FORMATIONS_GRAPHQL_FIELDS}
+        }
+      }
+    }`,
+    preview,
+  );
+
+  return entry?.data?.formationsCollection?.items;
+
+}
+
+export async function getSites(preview = false): Promise<any> {
+  const entry = await fetchGraphQL(
+    `query {
+      sitesCollection(limit: 50, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+        items {
+          ${SITES_GRAPHQL_FIELDS}
+        }
+      }
+    }`,
+    preview,
+  );  
+
+  return entry?.data?.sitesCollection?.items;
 
 }
 
@@ -84,6 +180,31 @@ export async function getPageContent(pageSlug: string, preview = false): Promise
     }`,
     preview,
   );
-  
+
   return entry?.data?.pagesCollection?.items[0]?.content;
+}
+
+export async function getImagesByIds(ids: string[], preview = false) {
+  const idsQuery = ids.map(id => `"${id}"`).join(",")
+
+  const result = await fetchGraphQL(
+    `query {
+      assetCollection(
+        where: { sys: { id_in: [${idsQuery}] } }
+        preview: ${preview ? "true" : "false"}
+      ) {
+        items {
+          sys { id }
+          title
+          url
+          width
+          height
+          contentType
+        }
+      }
+    }`,
+    preview
+  )
+
+  return result?.data?.assetCollection?.items ?? []
 }

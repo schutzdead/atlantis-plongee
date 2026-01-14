@@ -6,24 +6,39 @@ import { Anchor, Gauge, Fish } from 'lucide-react';
 import { ImageWithFallback } from '../shared/ImageWithFallback';
 import { BubbleButton } from '../shared/BubbleButton';
 
-type SiteFilter = 'all' | 'pointeLezard' | 'epaves';
+type SiteFilter = 'all' | 'Pointe à Lézard' | 'Épaves';
+
+interface Site {
+  titre: string;
+  prodonfeur: string;
+  niveau: string;
+  courteDescription: string;
+  pointsForts: string[];
+  horsParc: boolean;
+  catgorie: string;
+  photo: {
+    url: string;
+  };
+}
 
 interface SitesContentProps {
   content: any;
+  articles: Site[];
 }
 
-export function SitesContent({ content }: SitesContentProps) {
+export function SitesContent({ content, articles }: SitesContentProps) {
   const [activeFilter, setActiveFilter] = useState<SiteFilter>('all');
 
   const filteredSites = activeFilter === 'all'
-    ? content?.sites || []
-    : content?.sites?.filter((site: any) => site.category === activeFilter) || [];
+    ? articles || []
+    : (articles || []).filter((site) => site.catgorie === activeFilter);
 
   const filters = [
     { id: 'all' as SiteFilter, label: 'Tous les Sites' },
-    { id: 'pointeLezard' as SiteFilter, label: 'Pointe à Lézard' },
-    { id: 'epaves' as SiteFilter, label: 'Épaves' },
+    { id: 'Pointe à Lézard' as SiteFilter, label: 'Pointe à Lézard' },
+    { id: 'Épaves' as SiteFilter, label: 'Épaves' },
   ];
+  
 
   return (
     <div className="min-h-screen bg-white pt-20">
@@ -64,10 +79,10 @@ export function SitesContent({ content }: SitesContentProps) {
                 <path d="M2 18c1 .8 2 1.5 4 1.5 4 0 4-3 8-3 4.2 0 3.8 3 8 3 4 0 4-3 8-3 2 0 3 .7 4 1.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
               </svg>
             </div>
-            <p className="text-lg sm:text-xl lg:text-2xl text-[rgb(var(--primaryrgb)/0.95)] mb-6">
+            <p className="text-lg sm:text-xl lg:text-2xl text-white mb-6">
               {content?.hero?.subtitle || "Découvrez les trésors sous-marins"}
             </p>
-            <p className="text-base sm:text-lg text-[rgb(var(--primaryrgb)/0.8)] max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-white max-w-2xl mx-auto">
               {content?.hero?.description || "Dans la Réserve Cousteau"}
             </p>
           </motion.div>
@@ -107,82 +122,93 @@ export function SitesContent({ content }: SitesContentProps) {
       <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredSites.map((site: any, index: number) => (
-              <motion.div
-                key={site.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                whileHover={{ y: -10 }}
-                className="group"
-              >
-                <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100">
-                  {/* Image */}
-                  <div className="relative h-56 sm:h-64 overflow-hidden">
-                    <ImageWithFallback
-                      src={site.image || "https://images.unsplash.com/photo-1682687221363-72518513620e?w=800&h=600&fit=crop"}
-                      alt={site.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+{filteredSites.length > 0 ? (
+              filteredSites.map((site, index: number) => (
+                <motion.div
+                  key={`${site.titre}-${index}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  whileHover={{ y: -10 }}
+                  className="group"
+                >
+                  <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 flex flex-col">
+                    {/* Image */}
+                    <div className="relative h-56 sm:h-64 overflow-hidden flex-shrink-0">
+                      <ImageWithFallback
+                        src={site.photo?.url || "https://images.unsplash.com/photo-1682687221363-72518513620e?w=800&h=600&fit=crop"}
+                        alt={site.titre}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-                    {/* Level Badge */}
-                    <div className="absolute top-4 right-4 bg-[rgb(var(--primaryrgb)/0.95)] backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white flex items-center gap-2">
-                      <Gauge className="w-4 h-4" />
-                      {site.level}
+                      {/* Badges Container */}
+                      <div className="absolute top-4 left-4 right-4 flex flex-col items-end gap-2">
+                        {/* Level Badge */}
+                        <div className="bg-[rgb(var(--primaryrgb)/0.95)] backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white flex items-center gap-2">
+                          <Gauge className="w-4 h-4" />
+                          {site.niveau}
+                        </div>
+
+                        {/* Extra Badge (Hors parc) */}
+                        {site.horsParc && (
+                          <div className="bg-amber-500/95 backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white">
+                            Hors parc
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Name on image */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                          {site.titre}
+                        </h3>
+                        <div className="flex items-center gap-2 text-white/90 text-sm">
+                          <span>{site.prodonfeur}</span>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Extra Badge (Hors parc) */}
-                    {site.extra && (
-                      <div className="absolute top-4 left-4 bg-amber-500/95 backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white">
-                        {site.extra}
-                      </div>
-                    )}
+                    {/* Content */}
+                    <div className="p-6 flex flex-col flex-1">
+                      <p className="text-slate-600 mb-6 leading-relaxed">
+                        {site.courteDescription}
+                      </p>
 
-                    {/* Name on image */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                        {site.name}
-                      </h3>
-                      <div className="flex items-center gap-2 text-white/90 text-sm">
-                        <Fish className="w-4 h-4" />
-                        <span>{site.depth}</span>
-                      </div>
+                      {/* Highlights */}
+                      {site.pointsForts && site.pointsForts.length > 0 && (
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                            <Fish className="w-5 h-5 text-[var(--primary)]" />
+                            Points forts
+                          </h4>
+                          <ul className="space-y-2">
+                            {site.pointsForts.map((highlight: string, idx: number) => (
+                              <li key={idx} className="flex items-start gap-2 text-slate-600">
+                                <span className="text-[var(--primary)] mt-1">•</span>
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Spacer to push button to bottom */}
+                      <div className="flex-1" />
+
+                      {/* CTA Button */}
+                      <BubbleButton className="w-full mt-auto">
+                        Plonger ici
+                      </BubbleButton>
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      {site.description}
-                    </p>
-
-                    {/* Highlights */}
-                    {site.highlights && site.highlights.length > 0 && (
-                      <div className="mb-6">
-                        <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                          <Fish className="w-5 h-5 text-[var(--primary)]" />
-                          Points forts
-                        </h4>
-                        <ul className="space-y-2">
-                          {site.highlights.map((highlight: string, idx: number) => (
-                            <li key={idx} className="flex items-start gap-2 text-slate-600">
-                              <span className="text-[var(--primary)] mt-1">•</span>
-                              <span>{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* CTA Button */}
-                    <BubbleButton className="w-full">
-                      Plonger ici
-                    </BubbleButton>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-slate-600 text-lg">Aucun site de plongée trouvé pour cette catégorie.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

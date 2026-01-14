@@ -1,4 +1,4 @@
-import { getHomepageContent, getPageContent } from "@/lib/api";
+import { getHomepageContent, getImagesByIds, getPageContent } from "@/lib/api";
 import { generatePageMetadata, buildCanonicalUrl } from "@/utils/metadata";
 import {
   generateOrganizationJsonLd,
@@ -64,13 +64,15 @@ export default async function Page() {
     isPartOf: baseUrl,
   }));
 
+  const imageHero = await getImagesByIds(["5oXYpGSI4lufn6lByJTWug", "2cnVkyuZTbH9jgNFibB23D", "2kPHL9XrSm8aKiNM4338tn"]); 
+
   const combinedJsonLd = combineJsonLdSchemas(schemas);
 
   return (
     <>
       <JsonLdScript data={combinedJsonLd} />
       <div className="min-h-screen bg-white">
-        <HeroSection content={content.home.hero} />
+        <HeroSection content={content.home.hero} imageHero={imageHero} />
         <FiveStarSection content={content.home.fiveStar} />
         <QuickLinksSection content={content.home.quickLinks} />
         <TestimonialsSection content={content.home.testimonials} />

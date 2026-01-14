@@ -33,6 +33,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
 
   const defaultNavLinks: NavLink[] = [
     { href: '/decouverte', label: 'Découverte' },
+    { href: '/exploration', label: 'Exploration' },
     { href: '/formations', label: 'Formations' },
     { href: '/prix', label: 'Prix' },
     { href: '/sites', label: 'Sites de Plongée' },
@@ -52,7 +53,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-300 ${
           mobileMenuOpen ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md shadow-lg'
         }`}
       >
@@ -78,17 +79,17 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                   {link.label}
                 </Link>
               ))}
-              <BubbleButton>
-                Réserver
-              </BubbleButton>
+              <Link href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank">
+                <BubbleButton>
+                  Réserver
+                </BubbleButton>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden p-2 relative z-[60] ${
-                mobileMenuOpen ? 'text-white' : 'text-slate-900'
-              }`}
+              className={`lg:hidden p-2 relative z-[60] text-slate-900`}
               whileTap={{ scale: 0.9 }}
             >
               <AnimatePresence mode="wait">
@@ -125,7 +126,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
           <>
             {/* Vague qui remplit l'écran */}
             <motion.div
-              className="fixed inset-0 z-40 bg-[var(--primary)] lg:hidden"
+              className="fixed inset-0 z-[100] bg-[var(--primary)] lg:hidden"
               initial={{ clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }}
               animate={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
               exit={{ clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }}
@@ -133,7 +134,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
             >
               {/* Effet de vague SVG en overlay */}
               <motion.div
-                className="absolute top-0 left-0 right-0 h-32 overflow-hidden"
+                className="absolute top-0 left-0 right-0 h-44 overflow-hidden"
                 initial={{ y: -128 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -146,7 +147,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                 >
                   <motion.path
                     d="M0,64 C240,100 480,100 720,70 C960,40 1200,40 1440,70 L1440,0 L0,0 Z"
-                    fill="rgba(255,255,255,0.1)"
+                    fill="white"
                     initial={{ d: "M0,0 C240,0 480,0 720,0 C960,0 1200,0 1440,0 L1440,0 L0,0 Z" }}
                     animate={{ d: "M0,64 C240,100 480,100 720,70 C960,40 1200,40 1440,70 L1440,0 L0,0 Z" }}
                     transition={{ duration: 0.8, ease: 'easeInOut' }}
@@ -165,7 +166,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                     className="flex flex-col items-center justify-center h-full px-8 py-24"
                   >
                     <motion.div
-                      className="space-y-6 w-full max-w-md"
+                      className="space-y-4 w-full max-w-md pt-20"
                       initial="hidden"
                       animate="visible"
                       variants={{
@@ -201,21 +202,22 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                           </Link>
                         </motion.div>
                       ))}
-
-                      <motion.div
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0 }
-                        }}
-                        className="pt-6"
-                      >
-                        <BubbleButton
-                          variant="secondary"
-                          className="w-full bg-white text-[var(--primary)] hover:bg-white/90 text-lg py-4"
+                      <Link href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank">
+                        <motion.div
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0 }
+                          }}
+                          className="pt-6"
                         >
-                          Réserver
-                        </BubbleButton>
-                      </motion.div>
+                          <BubbleButton
+                            variant="secondary"
+                            className="w-full bg-white text-[var(--primary)] hover:bg-white/90 text-lg py-4"
+                          >
+                            Réserver
+                          </BubbleButton>
+                        </motion.div>
+                      </Link>
                     </motion.div>
                   </motion.div>
                 )}

@@ -22,9 +22,10 @@ interface HeroSectionProps {
     slides: HeroSlide[];
     cta: string;
   };
+  imageHero: any;
 }
 
-export function HeroSection({ content }: HeroSectionProps) {
+export function HeroSection({ content, imageHero }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -110,6 +111,7 @@ export function HeroSection({ content }: HeroSectionProps) {
       },
     },
   });
+  
 
   return (
     <section
@@ -136,8 +138,8 @@ export function HeroSection({ content }: HeroSectionProps) {
             {/* Main Image */}
             <div className="absolute inset-0" style={{ scale: 1.1 }}>
               <ImageWithFallback
-                src={slides[currentSlide].image.src}
-                alt={slides[currentSlide].image.alt}
+                src={imageHero[currentSlide].url}
+                alt="Photos de plongée en Guadeloupe"
                 className="w-full h-full object-cover"
               />
               {/* Gradient Overlay */}

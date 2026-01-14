@@ -6,9 +6,10 @@ import { ImageWithFallback } from '../shared/ImageWithFallback';
 
 interface EquipeContentProps {
   content: any;
+  articles: any;
 }
 
-export function EquipeContent({ content }: EquipeContentProps) {
+export function EquipeContent({ content, articles }: EquipeContentProps) {
   
   return (
     <div className="min-h-screen bg-white pt-20">
@@ -66,7 +67,7 @@ export function EquipeContent({ content }: EquipeContentProps) {
       </section>
 
       {/* Team Members Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
+      {/* <section className="py-16 sm:py-20 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {content?.members?.map((member: any, index: number) => (
@@ -121,7 +122,7 @@ export function EquipeContent({ content }: EquipeContentProps) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Values Section */}
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[rgb(var(--primaryrgb)/0.05)] to-white">
