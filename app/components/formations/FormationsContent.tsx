@@ -26,9 +26,10 @@ interface Formation {
 interface FormationsContentProps {
   content: any;
   articles: Formation[];
+  imageHero?: any;
 }
 
-export function FormationsContent({ content: initialContent, articles }: FormationsContentProps) {
+export function FormationsContent({ content: initialContent, articles, imageHero }: FormationsContentProps) {
   const content = initialContent;
   const [activeFilter, setActiveFilter] = useState<FormationFilter>('all');
 
@@ -51,15 +52,15 @@ export function FormationsContent({ content: initialContent, articles }: Formati
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <ImageWithFallback
-            src={content?.hero?.image?.src || "https://images.unsplash.com/photo-1694151425826-db0e185368dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"}
+            src={imageHero?.[0]?.url || content?.hero?.image?.src}
             alt={content?.hero?.image?.alt || "Formation de plongée"}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[50%_60%]"
           />
-          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.8)]" />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.6)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -106,16 +107,16 @@ export function FormationsContent({ content: initialContent, articles }: Formati
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 sm:py-12 bg-white sticky top-20 z-40 border-b border-gray-200 shadow-sm">
+      <section className="py-4 sm:py-8 bg-white sticky top-20 z-40 border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="flex sm:justify-center gap-2 sm:gap-4 overflow-x-auto scrollbar-hide pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
             {filters.map((filter) => (
               <motion.button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-6 sm:px-8 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className={`px-4 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                   activeFilter === filter.id
                     ? 'bg-[var(--primary)] text-white shadow-lg'
                     : 'bg-gray-100 text-slate-700 hover:bg-gray-200'

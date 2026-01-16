@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Star, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Star, ExternalLink } from 'lucide-react';
 import { WaveUnderline } from '../shared/WaveUnderline';
 import { useGoogleReviews, GoogleReview } from '@/hooks/useGoogleReviews';
 
@@ -23,6 +23,7 @@ interface TestimonialsSectionProps {
 export function TestimonialsSection({ content }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const swipeThreshold = 50;
 
   const { reviews: googleReviews, rating: globalRating, totalReviews, isLoading, error } = useGoogleReviews();
 
@@ -59,6 +60,14 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
       items.push({ ...testimonials[index], originalIndex: index });
     }
     return items;
+  };
+
+  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
+    if (info.offset.x < -swipeThreshold) {
+      nextTestimonial();
+    } else if (info.offset.x > swipeThreshold) {
+      prevTestimonial();
+    }
   };
 
   // Skeleton loader pendant le chargement
@@ -132,25 +141,8 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
         </motion.div>
 
         <div className="relative max-w-7xl mx-auto">
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-[rgb(var(--primaryrgb)/0.9)] hover:bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
-            aria-label="Avis précédent"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-[rgb(var(--primaryrgb)/0.9)] hover:bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
-            aria-label="Avis suivant"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
           {/* Carousel Container */}
-          <div className="overflow-hidden px-16">
+          <div className="overflow-hidden px-0 md:px-4">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -162,13 +154,17 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 cursor-grab active:cursor-grabbing"
               >
                 {getVisibleTestimonials().map((testimonial, idx) => (
                   <div
                     key={idx}
-                    className={`bg-white rounded-3xl p-6 my-4 shadow-sm border border-gray-100 h-[340px] max-h-[340px] min-h-[340px] flex flex-col justify-between ${
-                      idx === 2 ? 'hidden lg:flex' : idx === 1 ? 'hidden md:flex' : ''
+                    className={`bg-white rounded-3xl p-6 my-4 shadow-sm border border-gray-100 flex flex-col justify-between md:h-[340px] md:max-h-[340px] md:min-h-[340px] ${
+                      idx === 2 ? 'hidden lg:flex' : idx === 1 ? 'hidden md:flex' : 'w-full'
                     }`}
                   >
                     {/* Rating */}
@@ -180,13 +176,13 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
                       </div>
 
                       {/* Testimonial Text */}
-                      <p className="text-slate-700 text-base sm:text-lg mb-6 leading-relaxed text-center flex-1 overflow-auto">
+                      <p className="text-slate-700 text-base sm:text-lg mb-6 leading-relaxed text-center">
                         &quot;{testimonial.text}&quot;
                       </p>
                     </div>
                     {/* Author */}
                     <div className="flex items-end gap-3">
-                        <div className="w-12 h-12 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-12 h-12 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg shrink-0">
                           {testimonial.name.charAt(0)}
                         </div>
                       <div>
@@ -201,7 +197,7 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-6 md:mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}

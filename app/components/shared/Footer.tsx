@@ -31,16 +31,16 @@ export function Footer({ navLinks: customNavLinks }: FooterProps) {
   return (
     <footer className="bg-slate-900 text-white relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-12 md:text-left text-center">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-4"
+            className="space-y-4 flex flex-col md:items-start items-center"
           >
-              <Image src={logo} alt="Logo" className="h-40 w-auto" />
+              <Image src={logo} alt="Logo" className="h-20 md:h-40 w-auto" />
             <p className="text-gray-300 text-sm leading-relaxed">
               Explorez les merveilles sous-marines de la Guadeloupe
             </p>
@@ -74,6 +74,7 @@ export function Footer({ navLinks: customNavLinks }: FooterProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className='text-center md:text-left flex flex-col md:items-start items-center'
           >
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">

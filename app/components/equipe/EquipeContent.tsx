@@ -7,21 +7,32 @@ import { ImageWithFallback } from '../shared/ImageWithFallback';
 interface EquipeContentProps {
   content: any;
   articles: any;
+  imageHero?: any;
 }
 
-export function EquipeContent({ content, articles }: EquipeContentProps) {
+interface TeamMember {
+  nom: string;
+  specialite: string;
+  courteDescription: string;
+  photo?: {
+    url: string;
+  } | null;
+}
+
+export function EquipeContent({ content, articles, imageHero }: EquipeContentProps) {
+  const teamMembers: TeamMember[] = articles || [];
   
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzY3ViYSUyMGRpdmluZyUyMGluc3RydWN0b3J8ZW58MXx8fHwxNzY0NjA4NTQzfDA&ixlib=rb-4.1.0&q=80&w=1080"
+            src={imageHero?.[0]?.url}
             alt="Équipe de plongée"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.8)]" />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -67,65 +78,95 @@ export function EquipeContent({ content, articles }: EquipeContentProps) {
       </section>
 
       {/* Team Members Section */}
-      {/* <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {content?.members?.map((member: any, index: number) => (
-              <motion.div
-                key={member.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="relative h-64 sm:h-80 overflow-hidden">
-                  <ImageWithFallback
-                    src={member.image || `https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=800&fit=crop`}
-                    alt={`Portrait de ${member.name}`}
-                    className="w-full h-full object-cover"
+      {teamMembers.length > 0 && (
+        <section className="py-16 sm:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12 sm:mb-16"
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                {content?.team?.title || "L'Équipe"}
+              </h2>
+              <div className="flex justify-center mb-4">
+                <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
+                  <path
+                    d="M2 18c1.5 .8 3 1.5 6 1.5 6 0 6-3 12-3 6.3 0 5.7 3 12 3 6 0 6-3 12-3 3 0 4.5 .7 6 1.5"
+                    stroke="#06b6d4"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    fill="none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-white font-medium">
-                      {member.role}
-                    </p>
-                  </div>
-                </div>
+                </svg>
+              </div>
+            </motion.div>
 
-                <div className="p-6 sm:p-8">
-                  <p className="text-slate-600 mb-6 leading-relaxed">
-                    {member.bio}
-                  </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {teamMembers.map((member, index) => (
+                <motion.div
+                  key={`${member.nom}-${index}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                    {/* Photo ou placeholder */}
+                    {member.photo?.url ? (
+                      <div className="relative h-64 overflow-hidden">
+                        <ImageWithFallback
+                          src={member.photo.url}
+                          alt={`Portrait de ${member.nom}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-2xl font-bold text-white">
+                            {member.nom}
+                          </h3>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-gradient-to-br from-[var(--primary)] to-[rgb(var(--primaryrgb)/0.8)] p-6 text-center">
+                        <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Users className="w-10 h-10 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white">
+                          {member.nom}
+                        </h3>
+                      </div>
+                    )}
 
-                  {member.specialties && member.specialties.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                        <Award className="w-5 h-5 text-[var(--primary)]" />
-                        Spécialités
-                      </h4>
-                      <ul className="space-y-2">
-                        {member.specialties.map((specialty: string, idx: number) => (
-                          <li key={idx} className="flex items-start gap-2 text-slate-600">
-                            <span className="text-[var(--primary)] mt-1">•</span>
-                            <span>{specialty}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Contenu */}
+                    <div className="p-6 flex-1 flex flex-col">
+                      {/* Nom et spécialité si pas de photo */}
+                      {member.specialite && member.specialite !== '-' && (
+                        <div className="flex items-center gap-2 mb-3">
+                          <Award className="w-5 h-5 text-[var(--primary)]" />
+                          <span className="text-sm font-semibold text-[var(--primary)]">
+                            {member.specialite}
+                          </span>
+                        </div>
+                      )}
+
+                      <p className="text-slate-600 leading-relaxed flex-1">
+                        {member.courteDescription}
+                      </p>
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section> */}
+        </section>
+      )}
 
       {/* Values Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[rgb(var(--primaryrgb)/0.05)] to-white">
+      <section className="py-16 sm:py-20 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

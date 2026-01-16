@@ -42,22 +42,23 @@ interface PackagesSection {
 interface ExplorationContentProps {
   content: any;
   articles: Exploration[];
+  imageHero?: any;
 }
 
-export function ExplorationContent({ content, articles }: ExplorationContentProps) {
+export function ExplorationContent({ content, articles, imageHero }: ExplorationContentProps) {
   const packages: PackagesSection | undefined = content?.packages;
 
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src={content?.hero?.image?.src || "https://images.unsplash.com/photo-1544551763-46a013bb70d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"}
+            src={imageHero?.[0]?.url || content?.hero?.image?.src}
             alt={content?.hero?.image?.alt || "Plongées d'Exploration"}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.8)]" />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -134,6 +135,7 @@ export function ExplorationContent({ content, articles }: ExplorationContentProp
               )}
             </motion.div>
 
+            {/* Forfaits Encadrés */}
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
               {packages.items?.map((pkg, index) => (
                 <motion.div
@@ -143,52 +145,59 @@ export function ExplorationContent({ content, articles }: ExplorationContentProp
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   whileHover={{ y: -10 }}
-                  className="relative"
+                  className={`relative ${pkg.popular ? 'md:-mt-4 md:mb-4' : ''}`}
                 >
-                  <div className={`relative h-full rounded-3xl p-8 shadow-xl transition-all duration-300 border-2 ${
+                  <div className={`relative h-full rounded-3xl p-8 shadow-xl transition-all duration-300 border-2 flex flex-col ${
                     pkg.popular
-                      ? 'bg-[var(--primary)] border-[var(--primary)]/80 scale-105'
+                      ? 'bg-[var(--primary)] border-[var(--primary)]/80'
                       : 'bg-white border-gray-200 hover:border-[var(--primary)]'
                   }`}>
                     {pkg.popular && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-[var(--primary)]/90 text-white px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg">
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                        <div className="bg-amber-400 text-slate-900 px-6 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-lg whitespace-nowrap">
                           <Sparkles className="w-4 h-4" />
                           {packages.popularLabel || "Le Plus Populaire"}
                         </div>
                       </div>
                     )}
 
-                    <div className={pkg.popular ? 'text-white' : 'text-slate-900'}>
-                      <h3 className="text-2xl font-bold mb-2">{pkg.title}</h3>
-                      <div className="mb-2">
+                    <div className={`flex flex-col flex-1 ${pkg.popular ? 'text-white pt-4' : 'text-slate-900'}`}>
+                      <h3 className="text-2xl font-bold mb-4">{pkg.title}</h3>
+
+                      {/* Prix encadré */}
+                      <div className="mb-4">
                         <div className="flex items-baseline gap-2">
                           <span className="text-5xl font-bold">{pkg.price}</span>
                           {index === 0 && packages.perDive && (
                             <span className="text-lg opacity-80">{packages.perDive}</span>
                           )}
                         </div>
-                        <div className={`text-sm mt-1 ${pkg.popular ? 'text-white/70' : 'text-slate-600'}`}>
+                        <div className={`text-sm mt-1 ${pkg.popular ? 'text-white/80' : 'text-slate-600'}`}>
                           {packages.encadreeLabel || "Plongée encadrée"}
                         </div>
-                        <div className={`text-sm font-semibold mt-2 ${pkg.popular ? 'text-white/90' : 'text-[var(--primary)]'}`}>
-                          {pkg.priceAutonome} {packages.autonomeLabel || "en autonome"}
-                        </div>
                       </div>
+
                       {pkg.save && (
-                        <div className={`text-sm font-semibold mb-6 ${pkg.popular ? 'text-white/90' : 'text-[var(--primary)]'}`}>
+                        <div className={`inline-block text-sm font-semibold px-3 py-1 rounded-full mb-4 ${
+                          pkg.popular
+                            ? 'bg-white/20 text-white'
+                            : 'bg-green-100 text-green-700'
+                        }`}>
                           {pkg.save}
                         </div>
                       )}
 
-                      <ul className="space-y-4 mb-8 mt-8">
+                      <ul className="space-y-3 mb-6">
                         {pkg.features.map((feature, i) => (
                           <li key={i} className="flex items-start gap-3">
                             <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pkg.popular ? 'text-white' : 'text-[var(--primary)]'}`} />
-                            <span className="leading-relaxed">{feature}</span>
+                            <span className="leading-relaxed text-sm">{feature}</span>
                           </li>
                         ))}
                       </ul>
+
+                      {/* Spacer pour pousser le bouton en bas */}
+                      <div className="flex-1" />
 
                       <BubbleButton
                         className={`w-full ${
@@ -204,6 +213,38 @@ export function ExplorationContent({ content, articles }: ExplorationContentProp
                 </motion.div>
               ))}
             </div>
+
+            {/* Section Plongées Autonomes */}
+            {packages.items?.some(pkg => pkg.priceAutonome) && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-12 max-w-4xl mx-auto"
+              >
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-8 border border-slate-200">
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-slate-900">
+                      {packages.autonomeLabel || "Plongées En Autonomie"}
+                    </h3>
+                    <p className="text-sm text-slate-600">Pour plongeurs certifiés PA20 minimum</p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {packages.items?.map((pkg) => (
+                      <div
+                        key={`autonome-${pkg.id}`}
+                        className="bg-white rounded-xl p-4 border border-slate-200 hover:border-[var(--primary)] transition-colors"
+                      >
+                        <div className="text-sm font-medium text-slate-600 mb-1">{pkg.title}</div>
+                        <div className="text-2xl font-bold text-[var(--primary)]">{pkg.priceAutonome}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
         </section>
       )}

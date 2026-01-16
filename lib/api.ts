@@ -77,7 +77,7 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
 export async function getDecouvertes(preview = false): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      dcouvertesCollection(limit: 25, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+      dcouvertesCollection(limit: 25, preview: ${preview ? "true" : "false"}) {
         items {
           ${DECOUVERTE_GRAPHQL_FIELDS}
         }
@@ -109,7 +109,7 @@ export async function getExploration(preview = false): Promise<any> {
 export async function getTeam(preview = false): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      equipeCollection(limit: 25, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+      equipeCollection(limit: 25, preview: ${preview ? "true" : "false"}) {
         items {
           ${TEAM_GRAPHQL_FIELDS}
         }
@@ -125,7 +125,7 @@ export async function getTeam(preview = false): Promise<any> {
 export async function getFormations(preview = false): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      formationsCollection(limit: 50, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+      formationsCollection(limit: 50, preview: ${preview ? "true" : "false"}) {
         items {
           ${FORMATIONS_GRAPHQL_FIELDS}
         }
@@ -141,7 +141,7 @@ export async function getFormations(preview = false): Promise<any> {
 export async function getSites(preview = false): Promise<any> {
   const entry = await fetchGraphQL(
     `query {
-      sitesCollection(limit: 50, preview: ${preview ? "true" : "false"}, order: sys_publishedAt_ASC) {
+      sitesCollection(limit: 50, preview: ${preview ? "true" : "false"}) {
         items {
           ${SITES_GRAPHQL_FIELDS}
         }

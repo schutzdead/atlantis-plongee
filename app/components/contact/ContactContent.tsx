@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, MapPin, Phone, Clock, Send } from 'lucide-react';
 import { BubbleButton } from '../shared/BubbleButton';
+import { ImageWithFallback } from '../shared/ImageWithFallback';
 
 interface ContactContentProps {
   content: any;
+  imageHero?: any;
 }
 
-export function ContactContent({ content }: ContactContentProps) {
+export function ContactContent({ content, imageHero }: ContactContentProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,8 +35,17 @@ export function ContactContent({ content }: ContactContentProps) {
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src={imageHero?.[0]?.url}
+            alt="Contactez-Nous"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +81,7 @@ export function ContactContent({ content }: ContactContentProps) {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-16">
-          <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="white">
+          <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="#f9fafb">
             <path d="M0,40 C240,10 480,10 720,30 C960,50 1200,50 1440,30 L1440,54 L0,54 Z" />
           </svg>
         </div>

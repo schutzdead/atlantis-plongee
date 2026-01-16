@@ -16,14 +16,14 @@ export function DecouverteContent({ content, articles, imageHero }: DecouverteCo
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
             src={imageHero[0]?.url}
             alt="Baptêmes & Initiations"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.8)]" />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

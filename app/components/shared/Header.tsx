@@ -64,7 +64,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
               transition={{ duration: 0.2 }}
             >
               <Link href="/" className="flex items-center gap-3">
-                <Image src={logo} alt="Logo" className="h-20 w-auto" />
+                <Image src={logo} alt="Logo" className="h-16 md:h-20 w-auto" />
               </Link>
             </motion.div>
 
@@ -134,7 +134,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
             >
               {/* Effet de vague SVG en overlay */}
               <motion.div
-                className="absolute top-0 left-0 right-0 h-44 overflow-hidden"
+                className="absolute top-0 left-0 right-0 h-40 overflow-hidden"
                 initial={{ y: -128 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -163,7 +163,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="flex flex-col items-center justify-center h-full px-8 py-24"
+                    className="flex flex-col items-center px-8 py-24 h-full overflow-y-auto"
                   >
                     <motion.div
                       className="space-y-4 w-full max-w-md pt-20"

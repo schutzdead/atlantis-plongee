@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { Pause, Play } from 'lucide-react';
 import { BubbleButton } from '../shared/BubbleButton';
 import { ImageWithFallback } from '../shared/ImageWithFallback';
 
@@ -31,6 +31,7 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const swipeThreshold = 50;
 
   const slides = content.slides;
 
@@ -51,6 +52,14 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
   const goToSlide = (index: number) => {
     setDirection(index > currentSlide ? 1 : -1);
     setCurrentSlide(index);
+  };
+
+  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
+    if (info.offset.x < -swipeThreshold) {
+      nextSlide();
+    } else if (info.offset.x > swipeThreshold) {
+      prevSlide();
+    }
   };
 
   useEffect(() => {
@@ -114,11 +123,15 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
   
 
   return (
-    <section
+    <motion.section
       id="accueil"
-      className="relative h-screen overflow-hidden bg-slate-950"
+      className="relative h-screen overflow-hidden bg-slate-950 touch-pan-y"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.1}
+      onDragEnd={handleDragEnd}
     >
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--primaryrgb)/0.4)] via-slate-950 to-blue-950/40" />
@@ -248,16 +261,6 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
       <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 z-30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-4 sm:gap-6">
-            {/* Left Arrow */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={prevSlide}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-[rgb(var(--primaryrgb)/0.5)] transition-all duration-300 group"
-            >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:text-[var(--primary)] transition-colors" />
-            </motion.button>
-
             {/* Progress Indicators */}
             <div className="flex items-center gap-3 sm:gap-4">
               {slides.map((slide, index) => (
@@ -271,8 +274,8 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
                   {/* Background Line */}
                   <div className={`h-1 rounded-full transition-all duration-500 ${
                     index === currentSlide
-                      ? 'w-16 sm:w-20 bg-[var(--primary)]'
-                      : 'w-8 sm:w-10 bg-white/20 hover:bg-white/40'
+                      ? 'w-12 sm:w-20 bg-[var(--primary)]'
+                      : 'w-6 sm:w-10 bg-white/20 hover:bg-white/40'
                   }`} />
 
                   {/* Active Progress Animation */}
@@ -285,8 +288,8 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
                     />
                   )}
 
-                  {/* Slide Number */}
-                  <span className="absolute -top-6 left-0 text-xs text-white/60 group-hover:text-[var(--primary)] transition-colors">
+                  {/* Slide Number - hidden on mobile */}
+                  <span className="hidden sm:block absolute -top-6 left-0 text-xs text-white/60 group-hover:text-[var(--primary)] transition-colors">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </motion.button>
@@ -305,16 +308,6 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
               ) : (
                 <Play className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-[var(--primary)] transition-colors ml-0.5" />
               )}
-            </motion.button>
-
-            {/* Right Arrow */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={nextSlide}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-[rgb(var(--primaryrgb)/0.5)] transition-all duration-300 group"
-            >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:text-[var(--primary)] transition-colors" />
             </motion.button>
           </div>
         </div>
@@ -352,6 +345,6 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
           })}
         </div>
       )}
-    </section>
+    </motion.section>
   );
 }

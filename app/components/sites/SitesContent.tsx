@@ -24,9 +24,10 @@ interface Site {
 interface SitesContentProps {
   content: any;
   articles: Site[];
+  imageHero?: any;
 }
 
-export function SitesContent({ content, articles }: SitesContentProps) {
+export function SitesContent({ content, articles, imageHero }: SitesContentProps) {
   const [activeFilter, setActiveFilter] = useState<SiteFilter>('all');
 
   const filteredSites = activeFilter === 'all'
@@ -43,14 +44,14 @@ export function SitesContent({ content, articles }: SitesContentProps) {
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src={content?.hero?.image?.src || "https://images.unsplash.com/photo-1639707184438-d8f82b0ffdb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"}
+            src={imageHero?.[0]?.url || content?.hero?.image?.src}
             alt={content?.hero?.image?.alt || "Sites de plongée"}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.8)]" />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -66,7 +67,7 @@ export function SitesContent({ content, articles }: SitesContentProps) {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <div className="w-20 h-20 bg-[rgb(var(--primaryrgb)/0.2)] backdrop-blur-sm rounded-full flex items-center justify-center mx-auto border-2 border-[rgb(var(--primaryrgb)/0.3)]">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto border-2 border-white/30">
                 <Anchor className="w-10 h-10 text-white" />
               </div>
             </motion.div>
@@ -96,16 +97,16 @@ export function SitesContent({ content, articles }: SitesContentProps) {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 sm:py-12 bg-white sticky top-20 z-40 border-b border-gray-200 shadow-sm">
+      <section className="py-4 sm:py-8 bg-white sticky top-20 z-40 border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="flex sm:justify-center gap-2 sm:gap-4 overflow-x-auto scrollbar-hide pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
             {filters.map((filter) => (
               <motion.button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-6 sm:px-8 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className={`px-4 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                   activeFilter === filter.id
                     ? 'bg-[var(--primary)] text-white shadow-lg'
                     : 'bg-gray-100 text-slate-700 hover:bg-gray-200'

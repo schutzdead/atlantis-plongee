@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Ticket, HelpCircle, Compass, GraduationCap, Wrench, CheckCircle } from 'lucide-react';
+import { ImageWithFallback } from '../shared/ImageWithFallback';
 
 interface PriceItem {
   title: string;
@@ -23,6 +24,7 @@ interface PriceSection {
 
 interface PrixContentProps {
   content: any;
+  imageHero?: any;
 }
 
 const PriceSectionComponent = ({
@@ -145,14 +147,23 @@ const PriceSectionComponent = ({
   </section>
 );
 
-export function PrixContent({ content }: PrixContentProps) {
+export function PrixContent({ content, imageHero }: PrixContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 bg-[var(--primary)] overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src={imageHero?.[0]?.url}
+            alt="Nos Tarifs"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-[rgb(var(--primaryrgb)/0.5)]" />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,7 +176,7 @@ export function PrixContent({ content }: PrixContentProps) {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <div className="w-20 h-20 bg-[rgb(var(--primaryrgb)/0.2)] backdrop-blur-sm rounded-full flex items-center justify-center mx-auto border-2 border-[rgb(var(--primaryrgb)/0.3)]">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto border-2 border-white/30">
                 <Ticket className="w-10 h-10 text-white" />
               </div>
             </motion.div>
