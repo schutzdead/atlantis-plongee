@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { GraduationCap, DollarSign, Anchor, Compass, ArrowRight, Phone } from 'lucide-react';
 import { WaveUnderline } from '../shared/WaveUnderline';
 import { BubbleButton } from '../shared/BubbleButton';
+import Link from 'next/link';
 
 interface ServiceItem {
   title: string;
@@ -53,57 +54,59 @@ export function QuickLinksSection({ content }: QuickLinksSectionProps) {
           {content.services.map((service, index) => {
             const Icon = iconMap[service.link] || Compass;
             return (
-              <motion.button
+              <Link
                 key={service.title}
-                onClick={() => {
-                  window.location.hash = service.link.replace('/', '');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative w-full text-left"
+                href={service.link}
+                className="group relative w-full text-left block"
               >
-                <div className="relative h-full bg-white rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
-                  {/* Icon */}
-                  <div className="relative mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-[var(--primary)] flex items-center justify-center shadow-lg">
-                      <Icon className="w-8 h-8 text-white" />
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                >
+                  <div className="relative h-full bg-white rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
+                    {/* Icon */}
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 rounded-2xl bg-[var(--primary)] flex items-center justify-center shadow-lg">
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative">
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-slate-600 mb-6 leading-relaxed">
+                        {service.description}
+                      </p>
+
+                      <div className="flex items-center text-[var(--primary)] group-hover:text-[rgb(var(--primaryrgb)/0.8)] font-semibold">
+                        <span>{service.cta}</span>
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </motion.div>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="relative">
-                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
-
-                    <div className="flex items-center text-[var(--primary)] group-hover:text-[rgb(var(--primaryrgb)/0.8)] font-semibold">
-                      <span>{service.cta}</span>
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </motion.button>
+                </motion.div>
+              </Link>
             );
           })}
         </div>
 
         {/* Bouton Réserver une plongée */}
         <div className="flex justify-center mt-12">
-          <BubbleButton onClick={() => window.location.hash = 'contact'}>
-            {content.bookDiveCta}
-          </BubbleButton>
+          <a href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank" rel="noopener noreferrer">
+            <BubbleButton>
+              {content.bookDiveCta}
+            </BubbleButton>
+          </a>
         </div>
       </div>
     </section>

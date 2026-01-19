@@ -239,17 +239,19 @@ export function HeroSection({ content, imageHero }: HeroSectionProps) {
                   variants={getTextVariants(3)}
                   className="overflow-hidden pt-4"
                 >
-                  <BubbleButton
-                    size="lg"
-                    className="group relative text-white rounded-full text-base sm:text-lg px-6 sm:px-6 py-3 sm:py-3"
-                  >
-                    <motion.span
-                      className="relative z-10"
-                      transition={{ type: "spring", stiffness: 400 }}
+                  <a href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank" rel="noopener noreferrer">
+                    <BubbleButton
+                      size="lg"
+                      className="group relative text-white rounded-full text-base sm:text-lg px-6 sm:px-6 py-3 sm:py-3"
                     >
-                      {content.cta}
-                    </motion.span>
-                  </BubbleButton>
+                      <motion.span
+                        className="relative z-10"
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        {content.cta}
+                      </motion.span>
+                    </BubbleButton>
+                  </a>
                 </motion.div>
               </motion.div>
             </AnimatePresence>

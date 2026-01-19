@@ -199,15 +199,18 @@ export function ExplorationContent({ content, articles, imageHero }: Exploration
                       {/* Spacer pour pousser le bouton en bas */}
                       <div className="flex-1" />
 
-                      <BubbleButton
-                        className={`w-full ${
-                          pkg.popular
-                            ? 'bg-white text-[var(--primary)] hover:bg-gray-100'
-                            : ''
-                        }`}
-                      >
-                        {packages.ctaButton || "Réserver"}
-                      </BubbleButton>
+                      <a href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank" rel="noopener noreferrer" className="w-full">
+                        <BubbleButton
+                          className={`w-full`}
+                          variant={
+                            pkg.popular
+                              ? 'secondary'
+                              : 'primary'
+                          }
+                        >
+                          {packages.ctaButton || "Réserver"}
+                        </BubbleButton>
+                      </a>
                     </div>
                   </div>
                 </motion.div>
@@ -228,7 +231,7 @@ export function ExplorationContent({ content, articles, imageHero }: Exploration
                     <h3 className="text-xl font-bold text-slate-900">
                       {packages.autonomeLabel || "Plongées En Autonomie"}
                     </h3>
-                    <p className="text-sm text-slate-600">Pour plongeurs certifiés PA20 minimum</p>
+                    <p className="text-sm text-slate-600">{content?.packages?.autonomeDescription || "Pour plongeurs certifiés PA20 minimum"}</p>
                   </div>
 
                   <div className="grid sm:grid-cols-3 gap-4">
@@ -321,13 +324,13 @@ export function ExplorationContent({ content, articles, imageHero }: Exploration
                       <div className="flex items-center gap-3 text-sm">
                         <Clock className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                         <span className="text-slate-700">
-                          <span className="font-semibold">Durée:</span> {dive?.dure}
+                          <span className="font-semibold">{content?.labels?.duration || "Durée"}:</span> {dive?.dure}
                         </span>
                       </div>
                       <div className="flex items-center gap-3 text-sm">
                         <CheckCircle className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                         <span className="text-slate-700">
-                          <span className="font-semibold">Prérequis:</span> {dive?.preRequis}
+                          <span className="font-semibold">{content?.labels?.prerequisites || "Prérequis"}:</span> {dive?.preRequis}
                         </span>
                       </div>
                     </div>
@@ -336,9 +339,9 @@ export function ExplorationContent({ content, articles, imageHero }: Exploration
                     <div className="flex-1" />
 
                     {/* CTA Button */}
-                    <Link href={dive?.lien || '#'} className="w-full mt-auto">
+                    <Link href={dive?.lien || "https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking"} target="_blank" className="w-full mt-auto">
                       <BubbleButton className="w-full">
-                        Réserver
+                        {content?.buttons?.reserve || "Réserver"}
                       </BubbleButton>
                     </Link>
                   </div>

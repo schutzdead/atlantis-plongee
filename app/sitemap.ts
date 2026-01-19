@@ -8,12 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       baseUrl,
       defaultChangeFrequency: "monthly",
-      defaultPriority: 0.7,
+      defaultPriority: 0.8,
     },
     [
       { path: "/", priority: 1.0, changeFrequency: "monthly" },
       { path: "/decouverte" },
       { path: "/formations" },
+      { path: "/exploration" },
       { path: "/sites" },
       { path: "/prix" },
       { path: "/equipe" },

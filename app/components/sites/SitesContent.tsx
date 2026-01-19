@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { Anchor, Gauge, Fish } from 'lucide-react';
 import { ImageWithFallback } from '../shared/ImageWithFallback';
@@ -35,11 +35,12 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
     : (articles || []).filter((site) => site.catgorie === activeFilter);
 
   const filters = [
-    { id: 'all' as SiteFilter, label: 'Tous les Sites' },
-    { id: 'Pointe à Lézard' as SiteFilter, label: 'Pointe à Lézard' },
-    { id: 'Épaves' as SiteFilter, label: 'Épaves' },
+    { id: 'all' as SiteFilter, label: content?.filters?.all || 'Tous les Sites' },
+    { id: 'Pointe à Lézard' as SiteFilter, label: content?.filters?.pointeLezard || 'Pointe à Lézard' },
+    { id: 'Épaves' as SiteFilter, label: content?.filters?.epaves || 'Épaves' },
   ];
   
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="min-h-screen bg-white pt-20">
@@ -103,7 +104,13 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
             {filters.map((filter) => (
               <motion.button
                 key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
+                onClick={() => {
+                  setActiveFilter(filter.id)
+                  gridRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`px-4 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
@@ -120,7 +127,7 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
       </section>
 
       {/* Sites Grid */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 scroll-mt-40 md:scroll-mt-60" ref={gridRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 {filteredSites.length > 0 ? (
@@ -154,7 +161,7 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
                         {/* Extra Badge (Hors parc) */}
                         {site.horsParc && (
                           <div className="bg-amber-500/95 backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white">
-                            Hors parc
+                            {content?.badges?.horsParc || "Hors parc"}
                           </div>
                         )}
                       </div>
@@ -181,7 +188,7 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
                         <div className="mb-6">
                           <h4 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                             <Fish className="w-5 h-5 text-[var(--primary)]" />
-                            Points forts
+                            {content?.labels?.highlights || "Points forts"}
                           </h4>
                           <ul className="space-y-2">
                             {site.pointsForts.map((highlight: string, idx: number) => (
@@ -198,16 +205,18 @@ export function SitesContent({ content, articles, imageHero }: SitesContentProps
                       <div className="flex-1" />
 
                       {/* CTA Button */}
-                      <BubbleButton className="w-full mt-auto">
-                        Plonger ici
-                      </BubbleButton>
+                      <a href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank" rel="noopener noreferrer" className="w-full mt-auto block">
+                        <BubbleButton className="w-full">
+                          {content?.buttons?.diveHere || "Plonger ici"}
+                        </BubbleButton>
+                      </a>
                     </div>
                   </div>
                 </motion.div>
               ))
             ) : (
               <div className="col-span-full text-center py-12">
-                <p className="text-slate-600 text-lg">Aucun site de plongée trouvé pour cette catégorie.</p>
+                <p className="text-slate-600 text-lg">{content?.emptyState || "Aucun site de plongée trouvé pour cette catégorie."}</p>
               </div>
             )}
           </div>

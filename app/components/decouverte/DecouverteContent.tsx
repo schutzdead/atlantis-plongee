@@ -14,7 +14,7 @@ interface DecouverteContentProps {
 
 export function DecouverteContent({ content, articles, imageHero }: DecouverteContentProps) {
   return (
-    <div className="min-h-screen bg-white pt-20">
+    <div className="min-h-screen bg-gray-50 pt-20">
       {/* Hero Section */}
       <section className="relative pt-14 pb-24 sm:pb-32 sm:pt-20 bg-[var(--primary)] overflow-hidden">
         <div className="absolute inset-0">
@@ -62,7 +62,7 @@ export function DecouverteContent({ content, articles, imageHero }: DecouverteCo
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 h-16">
-          <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="white">
+          <svg className="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="rgb(249,250,251)">
             <path d="M0,40 C240,10 480,10 720,30 C960,50 1200,50 1440,30 L1440,54 L0,54 Z" />
           </svg>
         </div>
@@ -137,13 +137,13 @@ export function DecouverteContent({ content, articles, imageHero }: DecouverteCo
                       <div className="flex items-center gap-3 text-sm">
                         <Clock className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                         <span className="text-slate-700">
-                          <span className="font-semibold">Durée:</span> {dive?.dure}
+                          <span className="font-semibold">{content?.labels?.duration || "Durée"}:</span> {dive?.dure}
                         </span>
                       </div>
                       <div className="flex items-center gap-3 text-sm">
                         <CheckCircle className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                         <span className="text-slate-700">
-                          <span className="font-semibold">Prérequis:</span> {dive?.preRequis}
+                          <span className="font-semibold">{content?.labels?.prerequisites || "Prérequis"}:</span> {dive?.preRequis}
                         </span>
                       </div>
                     </div>
@@ -152,9 +152,9 @@ export function DecouverteContent({ content, articles, imageHero }: DecouverteCo
                     <div className="flex-1" />
 
                     {/* CTA Button */}
-                    <Link href={dive?.lien} className="w-full mt-auto">
+                    <Link href={dive?.lien || "https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking"} target="_blank" className="w-full mt-auto">
                       <BubbleButton className="w-full">
-                        Réserver
+                        {content?.buttons?.reserve || "Réserver"}
                       </BubbleButton>
                     </Link>
                   </div>

@@ -15,9 +15,10 @@ interface NavLink {
 
 interface HeaderProps {
   navLinks?: NavLink[];
+  ctaLabel?: string;
 }
 
-export function Header({ navLinks: customNavLinks }: HeaderProps) {
+export function Header({ navLinks: customNavLinks, ctaLabel }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showContent, setShowContent] = useState(false);
 
@@ -81,7 +82,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
               ))}
               <Link href="https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking" target="_blank">
                 <BubbleButton>
-                  Réserver
+                  {ctaLabel || "Réserver"}
                 </BubbleButton>
               </Link>
             </div>
@@ -214,7 +215,7 @@ export function Header({ navLinks: customNavLinks }: HeaderProps) {
                             variant="secondary"
                             className="w-full bg-white text-[var(--primary)] hover:bg-white/90 text-lg py-4"
                           >
-                            Réserver
+                            {ctaLabel || "Réserver"}
                           </BubbleButton>
                         </motion.div>
                       </Link>

@@ -42,7 +42,7 @@ export function BubbleButton({
 
   const variantClasses = {
     primary: 'bg-[var(--primary)] hover:bg-[rgb(var(--primaryrgb)/0.9)] text-white',
-    secondary: 'bg-slate-700 hover:bg-slate-800 text-[var(--primary)]',
+    secondary: 'bg-white hover:bg-white text-[var(--primary)]',
     outline: 'border-2 border-[var(--primary)] text-[var(--primary)] hover:bg-[rgb(var(--primaryrgb)/0.05)]',
     ghost: 'text-[var(--primary)] hover:bg-[rgb(var(--primaryrgb)/0.05)]',
     white: 'bg-white/90 hover:bg-white text-[var(--primary)]',
@@ -67,7 +67,7 @@ export function BubbleButton({
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`}
     >
       {children}
-      <BubbleEffect bubbles={bubbles} />
+      <BubbleEffect bubbles={bubbles} variant={variant} />
 
       {/* Effet de vague au hover */}
       <motion.div

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { GraduationCap, Clock, CheckCircle, Award, AlertTriangle, Download } from 'lucide-react';
 import { ImageWithFallback } from '../shared/ImageWithFallback';
 import { BubbleButton } from '../shared/BubbleButton';
+
 
 type FormationFilter = 'all' | 'ecoleFrancaise' | 'padi';
 
@@ -44,10 +45,12 @@ export function FormationsContent({ content: initialContent, articles, imageHero
   );
 
   const filters = [
-    { id: 'all' as FormationFilter, label: 'Toutes' },
-    { id: 'ecoleFrancaise' as FormationFilter, label: 'École Française' },
-    { id: 'padi' as FormationFilter, label: 'PADI' },
+    { id: 'all' as FormationFilter, label: content?.filters?.all || 'Toutes' },
+    { id: 'ecoleFrancaise' as FormationFilter, label: content?.filters?.ecoleFrancaise || 'École Française' },
+    { id: 'padi' as FormationFilter, label: content?.filters?.padi || 'PADI' },
   ];
+
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="min-h-screen bg-white pt-20">
@@ -113,7 +116,13 @@ export function FormationsContent({ content: initialContent, articles, imageHero
             {filters.map((filter) => (
               <motion.button
                 key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
+                onClick={() => {
+                  setActiveFilter(filter.id)
+                  gridRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`px-4 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
@@ -196,7 +205,7 @@ export function FormationsContent({ content: initialContent, articles, imageHero
           </div>
 
           {/* Formations Cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 scroll-mt-40 md:scroll-mt-60" ref={gridRef}>
             {filteredFormations.map((formation, index: number) => {
               return (
                 <motion.div
@@ -224,7 +233,7 @@ export function FormationsContent({ content: initialContent, articles, imageHero
 
                       {/* Organization Badge */}
                       <div className="absolute top-4 left-4 bg-[rgb(var(--primaryrgb)/0.9)] backdrop-blur-sm rounded-full px-4 py-2 font-semibold text-sm text-white">
-                        {formation.organization === 'ecoleFrancaise' ? 'École FR' : 'PADI'}
+                        {formation.organization === 'ecoleFrancaise' ? (content?.badges?.ecoleFr || 'École FR') : 'PADI'}
                       </div>
                     </div>
 
@@ -248,19 +257,19 @@ export function FormationsContent({ content: initialContent, articles, imageHero
                         <div className="flex items-center gap-3 text-sm">
                           <Clock className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Durée:</span> {formation.dure}
+                            <span className="font-semibold">{content?.labels?.duration || "Durée"}:</span> {formation.dure}
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-sm">
                           <CheckCircle className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Prérequis:</span> {formation.preRequis}
+                            <span className="font-semibold">{content?.labels?.prerequisites || "Prérequis"}:</span> {formation.preRequis}
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-sm">
                           <Award className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
                           <span className="text-slate-700">
-                            <span className="font-semibold">Niveau:</span> {formation.niveau}
+                            <span className="font-semibold">{content?.labels?.level || "Niveau"}:</span> {formation.niveau}
                           </span>
                         </div>
                       </div>
@@ -273,9 +282,9 @@ export function FormationsContent({ content: initialContent, articles, imageHero
                         <div className="grid grid-cols-2 gap-3 mt-auto">
                           <BubbleButton
                             className="text-sm"
-                            onClick={() => window.open(formation.lien, '_blank')}
+                            onClick={() => window.open(formation.lien || "https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking", '_blank')}
                           >
-                            Réserver
+                            {content?.buttons?.reserve || "Réserver"}
                           </BubbleButton>
                           <BubbleButton
                             variant="outline"
@@ -283,15 +292,15 @@ export function FormationsContent({ content: initialContent, articles, imageHero
                             onClick={() => window.open(formation.lienPadi!, '_blank')}
                           >
                             <Download className="w-4 h-4" />
-                            Kit PADI
+                            {content?.buttons?.padiKit || "Kit PADI"}
                           </BubbleButton>
                         </div>
                       ) : (
                         <BubbleButton
                           className="w-full mt-auto"
-                          onClick={() => window.open(formation.lien, '_blank')}
+                          onClick={() => window.open(formation.lien || "https://public.zuurit.com/fr/atlantisplongeeguadeloupe/booking", '_blank')}
                         >
-                          Réserver cette formation
+                          {content?.buttons?.reserveFormation || "Réserver cette formation"}
                         </BubbleButton>
                       )}
                     </div>

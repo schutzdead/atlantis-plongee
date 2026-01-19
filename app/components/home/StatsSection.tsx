@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'motion/react';
 import { BubbleButton } from '../shared/BubbleButton';
+import Link from 'next/link';
 
 interface StatItemProps {
   value: number;
@@ -123,9 +124,11 @@ export function StatsSection({ content }: StatsSectionProps) {
 
         {/* Bouton Découvrez l'équipe */}
         <div className="flex justify-center mt-12">
-          <BubbleButton onClick={() => window.location.hash = 'equipe'}>
-            {content.discoverTeamCta}
-          </BubbleButton>
+          <Link href="/equipe">
+            <BubbleButton>
+              {content.discoverTeamCta}
+            </BubbleButton>
+          </Link>
         </div>
       </div>
     </section>

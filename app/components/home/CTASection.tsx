@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { BubbleButton } from '../shared/BubbleButton';
+import Link from 'next/link';
 
 interface CTASectionProps {
   content: {
@@ -45,14 +46,15 @@ export function CTASection({ content }: CTASectionProps) {
           <p className="text-lg sm:text-xl lg:text-2xl text-white/95 mb-8 sm:mb-12 leading-relaxed">
             {content.description}
           </p>
-          <BubbleButton
-            size="lg"
-            variant="white"
-            className="rounded-full text-base sm:text-lg font-semibold"
-            onClick={() => window.location.hash = 'contact'}
-          >
-            {content.button}
-          </BubbleButton>
+          <Link href="/contact" target="_blank" rel="noopener noreferrer">
+            <BubbleButton
+              size="lg"
+              variant="white"
+              className="rounded-full text-base sm:text-lg font-semibold"
+            >
+              {content.button}
+            </BubbleButton>
+          </Link>
         </motion.div>
       </div>
 
