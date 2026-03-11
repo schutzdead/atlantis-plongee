@@ -9,8 +9,6 @@ interface BubbleEffectProps {
 }
 
 export function BubbleEffect({ bubbles, variant }: BubbleEffectProps) {
-  console.log(variant);
-  
   return (
     <>
       {bubbles.map((bubble) => (

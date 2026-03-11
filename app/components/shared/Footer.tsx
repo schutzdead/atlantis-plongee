@@ -96,7 +96,7 @@ export function Footer({ navLinks: customNavLinks, content }: FooterProps) {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-[var(--primary)] flex-shrink-0" />
-                <a href={`tel:${content?.phone?.replace(/\s/g, '') || "+590690123456"}`} className="text-gray-300 hover:text-[var(--primary)] transition-colors text-sm">
+                <a href={`tel:${content?.phone?.replace(/\s/g, '') || "+590 690 96 49 21"}`} className="text-gray-300 hover:text-[var(--primary)] transition-colors text-sm">
                   {content?.phone || "+590 690 12 34 56"}
                 </a>
               </li>
@@ -121,7 +121,7 @@ export function Footer({ navLinks: customNavLinks, content }: FooterProps) {
           <h4 className="text-lg font-semibold mb-4 text-center">{content?.mapTitle || "Où nous trouver"}</h4>
           <div className="rounded-2xl overflow-hidden shadow-xl border border-white/10">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.8!2d-61.77!3d16.12!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDA3JzEyLjAiTiA2McKwNDYnMTIuMCJX!5e0!3m2!1sfr!2sgp!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1578.164357957773!2d-61.77600127062354!3d16.165664242111472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c13666b4a6dd3f3%3A0x1ec9738e9ffc941a!2sAtlantis%20Plong%C3%A9e%2C%20Guadeloupe!5e0!3m2!1sfr!2sfr!4v1773266075082!5m2!1sfr!2sfr"
               width="100%"
               height="300"
               style={{ border: 0 }}
