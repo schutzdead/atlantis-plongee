@@ -29,14 +29,13 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
 
   // Utiliser les avis Google si disponibles, sinon fallback sur les avis Contentful
   const useGoogleData = googleReviews.length > 0 && !error;
-
+  console.log(googleReviews);
+  
   const testimonials = useGoogleData
     ? googleReviews.map((review: GoogleReview) => ({
         name: review.name,
-        role: review.relativeTime,
         text: review.text,
         rating: review.rating,
-        photoUrl: review.photoUrl,
       }))
     : content.items.map((item) => ({
         ...item,
@@ -187,7 +186,6 @@ export function TestimonialsSection({ content }: TestimonialsSectionProps) {
                         </div>
                       <div>
                         <div className="font-bold text-slate-900">{testimonial.name}</div>
-                        <div className="text-sm text-slate-500">{testimonial.role}</div>
                       </div>
                     </div>
                   </div>

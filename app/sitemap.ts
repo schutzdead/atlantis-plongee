@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { generateSitemapEntries, formatForNextJs } from "../utils/sitemap";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://example.com";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.atlantisplongee.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries = generateSitemapEntries(
