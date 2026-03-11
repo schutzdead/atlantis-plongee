@@ -50,6 +50,9 @@ export async function GET() {
 
     const response = await fetch(url.toString(), {
       next: { revalidate: 3600 }, // Cache 1 heure
+      headers: {
+        Referer: "https://www.atlantisplongee.com",
+      },
     });
 
     const data = await response.json();
