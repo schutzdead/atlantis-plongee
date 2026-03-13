@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, MapPin, Phone, Clock, Send } from 'lucide-react';
+import { Mail, MapPin, Phone, Clock, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { BubbleButton } from '../shared/BubbleButton';
 import { ImageWithFallback } from '../shared/ImageWithFallback';
 
@@ -19,9 +19,23 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
     subject: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error();
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch {
+      setStatus('error');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -185,16 +199,35 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
                     />
                   </div>
 
+                  {status === 'success' && (
+                    <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-3 rounded-xl">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                      <span className="text-sm font-medium">Message envoyé ! Nous vous répondrons rapidement.</span>
+                    </div>
+                  )}
+
+                  {status === 'error' && (
+                    <div className="flex items-center gap-2 text-red-600 bg-red-50 px-4 py-3 rounded-xl">
+                      <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                      <span className="text-sm font-medium">Une erreur s'est produite. Veuillez réessayer.</span>
+                    </div>
+                  )}
+
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <BubbleButton
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2"
+                      disabled={status === 'loading'}
+                      className="w-full flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-5 h-5" />
-                      {content?.form?.submit || "Envoyer le message"}
+                      {status === 'loading' ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <Send className="w-5 h-5" />
+                      )}
+                      {status === 'loading' ? 'Envoi en cours...' : (content?.form?.submit || "Envoyer le message")}
                     </BubbleButton>
                   </motion.div>
                 </form>
