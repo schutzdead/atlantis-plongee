@@ -25,7 +25,8 @@ export async function POST(request: Request) {
 
     await transporter.sendMail({
       from: `"${name}" <${process.env.SMTP_USER}>`,
-      to: ['lucas.soubry@gmail.com', 'atlantisplongee971@gmail.com'],
+      // to: ['lucas.soubry@gmail.com', 'atlantisplongee971@gmail.com'],
+      to: ['lucas.soubry@gmail.com'],
       replyTo: email,
       subject: `[Contact Site] ${subject}`,
       html: `

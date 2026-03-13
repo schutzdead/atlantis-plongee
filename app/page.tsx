@@ -14,7 +14,7 @@ import { TestimonialsSection } from "@/app/components/home/TestimonialsSection";
 import { StatsSection } from "@/app/components/home/StatsSection";
 import { CTASection } from "@/app/components/home/CTASection";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://atlantis-plongee.gp";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.atlantisplongee.com";
 
 export async function generateMetadata() {
   const content = await getPageContent("Accueil");

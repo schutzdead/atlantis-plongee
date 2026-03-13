@@ -19,10 +19,28 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
     subject: '',
     message: '',
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const validate = (data: typeof formData) => {
+    const errs: Record<string, string> = {};
+    if (!data.name.trim()) errs.name = 'Le nom est requis.';
+    if (!data.email.trim()) errs.email = "L'email est requis.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errs.email = "L'email n'est pas valide.";
+    if (!data.subject.trim()) errs.subject = 'Le sujet est requis.';
+    if (!data.message.trim()) errs.message = 'Le message est requis.';
+    return errs;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs = validate(formData);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      setTouched({ name: true, email: true, subject: true, message: true });
+      return;
+    }
     setStatus('loading');
     try {
       const res = await fetch('/api/contact', {
@@ -33,16 +51,24 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
       if (!res.ok) throw new Error();
       setStatus('success');
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      setErrors({});
+      setTouched({});
     } catch {
       setStatus('error');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const newData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newData);
+    if (touched[e.target.name]) {
+      setErrors(validate(newData));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setTouched((prev) => ({ ...prev, [e.target.name]: true }));
+    setErrors(validate({ ...formData, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -130,10 +156,13 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder={content?.form?.fields?.name?.placeholder || "Jean Dupont"}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[var(--primary)] focus:outline-none transition-colors"
+                      className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-colors ${touched.name && errors.name ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-[var(--primary)]'}`}
                     />
+                    {touched.name && errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                    )}
                   </div>
 
                   <div>
@@ -146,10 +175,13 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder={content?.form?.fields?.email?.placeholder || "jean.dupont@example.com"}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[var(--primary)] focus:outline-none transition-colors"
+                      className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-colors ${touched.email && errors.email ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-[var(--primary)]'}`}
                     />
+                    {touched.email && errors.email && (
+                      <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                    )}
                   </div>
 
                   <div>
@@ -177,10 +209,13 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder={content?.form?.fields?.subject?.placeholder || "Réservation de plongée"}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[var(--primary)] focus:outline-none transition-colors"
+                      className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-colors ${touched.subject && errors.subject ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-[var(--primary)]'}`}
                     />
+                    {touched.subject && errors.subject && (
+                      <p className="mt-1 text-sm text-red-500">{errors.subject}</p>
+                    )}
                   </div>
 
                   <div>
@@ -192,11 +227,14 @@ export function ContactContent({ content, imageHero }: ContactContentProps) {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder={content?.form?.fields?.message?.placeholder || "Décrivez votre demande..."}
-                      required
                       rows={6}
-                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[var(--primary)] focus:outline-none transition-colors resize-none"
+                      className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-colors resize-none ${touched.message && errors.message ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-[var(--primary)]'}`}
                     />
+                    {touched.message && errors.message && (
+                      <p className="mt-1 text-sm text-red-500">{errors.message}</p>
+                    )}
                   </div>
 
                   {status === 'success' && (

@@ -2,7 +2,7 @@ import { getDecouvertes, getImagesByIds, getPageContent } from "@/lib/api";
 import { generatePageMetadata, buildCanonicalUrl } from "@/utils/metadata";
 import { DecouverteContent } from "../components/decouverte/DecouverteContent";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://atlantis-plongee.gp";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.atlantisplongee.com";
 
 export async function generateMetadata() {
   const content = await getPageContent("Découverte");
@@ -30,5 +30,32 @@ export default async function DecouvPage() {
   const content = await getPageContent("Découverte");
   const articles = await getDecouvertes();
   const imageHero = await getImagesByIds(["1ezazr4Xn27Rx6YEbDYkG9"]);
-  return <DecouverteContent content={content} articles={articles} imageHero={imageHero} />;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: content.seo?.title || "Baptêmes & Initiations | Atlantis Plongée Guadeloupe",
+    description: content.seo?.description || "Découvrez la plongée sous-marine en Guadeloupe avec nos baptêmes et initiations.",
+    url: `${baseUrl}/decouverte`,
+    serviceType: "Baptême de plongée",
+    provider: {
+      "@type": "Organization",
+      name: "Atlantis Plongée Guadeloupe",
+      url: baseUrl,
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Guadeloupe",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <DecouverteContent content={content} articles={articles} imageHero={imageHero} />
+    </>
+  );
 }

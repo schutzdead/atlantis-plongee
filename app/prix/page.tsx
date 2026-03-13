@@ -2,7 +2,7 @@ import { getImagesByIds, getPageContent } from "@/lib/api";
 import { generatePageMetadata, buildCanonicalUrl } from "@/utils/metadata";
 import { PrixContent } from "../components/prix/PrixContent";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://atlantis-plongee.gp";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.atlantisplongee.com";
 
 export async function generateMetadata() {
   const content = await getPageContent("Prix");
@@ -30,5 +30,37 @@ export default async function PrixPage() {
   const content = await getPageContent("Prix");
   const imageHero = await getImagesByIds(["5ACUDjoXknTQ18NPnGs7XW"]);
 
-  return <PrixContent content={content} imageHero={imageHero} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: content.seo?.title || "Tarifs Plongée | Atlantis Plongée Guadeloupe",
+    description: content.seo?.description || "Consultez nos tarifs pour les baptêmes, formations et plongées exploration en Guadeloupe.",
+    url: `${baseUrl}/prix`,
+    mainEntity: {
+      "@type": "Service",
+      name: "Plongée sous-marine en Guadeloupe",
+      provider: {
+        "@type": "Organization",
+        name: "Atlantis Plongée Guadeloupe",
+        url: baseUrl,
+      },
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "EUR",
+        offerCount: "3",
+        lowPrice: "45",
+        highPrice: "500",
+      },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <PrixContent content={content} imageHero={imageHero} />
+    </>
+  );
 }

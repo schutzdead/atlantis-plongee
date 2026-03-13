@@ -2,7 +2,7 @@ import { getImagesByIds, getPageContent, getTeam } from "@/lib/api";
 import { generatePageMetadata, buildCanonicalUrl } from "@/utils/metadata";
 import { EquipeContent } from "../components/equipe/EquipeContent";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://atlantis-plongee.gp";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.atlantisplongee.com";
 
 export async function generateMetadata() {
   const content = await getPageContent("Equipe");
@@ -31,5 +31,26 @@ export default async function EquipePage() {
   const articles = await getTeam();
   const imageHero = await getImagesByIds(["3rpR6tIVnWLFw4127BhXwx"]);
 
-  return <EquipeContent content={content} articles={articles} imageHero={imageHero} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: content.seo?.title || "Notre Équipe | Atlantis Plongée Guadeloupe",
+    description: content.seo?.description || "Découvrez l'équipe passionnée d'Atlantis Plongée.",
+    url: `${baseUrl}/equipe`,
+    mainEntity: {
+      "@type": "Organization",
+      name: "Atlantis Plongée Guadeloupe",
+      url: baseUrl,
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <EquipeContent content={content} articles={articles} imageHero={imageHero} />
+    </>
+  );
 }
